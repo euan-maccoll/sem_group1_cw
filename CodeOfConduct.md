@@ -10,3 +10,4 @@ This is accepted by all members
 signed by:
 Euan
 Julius
+Brody
