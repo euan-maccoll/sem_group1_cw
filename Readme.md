@@ -11,6 +11,6 @@
 | Euan Maccoll     | 20            | XX            | XX            | XX            | XX                |
 | Julius Manowski  | 20            | XX            | XX            | XX            | XX                |
 | Brody Walker     | 20            | XX            | XX            | XX            | XX                |
-| Aleks Czernewski | 20            | XX            | XX            | XX            | XX                |
+| Aleks Czernecki | 20            | XX            | XX            | XX            | XX                |
 | Magnus Macphee   | 20            | XX            | XX            | XX            | XX                |
 | **Total**        | **100**       | **XX**        | **XX**        | **XX**        | **XX** 				       |
