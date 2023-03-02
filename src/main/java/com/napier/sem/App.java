@@ -1,6 +1,8 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.util.Scanner;
+
 
 public class App
 {
@@ -12,8 +14,25 @@ public class App
         // Connect to database
         a.connect();
 
-        //get City
-        String input = "London";
+        //testing app and DB functionality
+        System.out.println("Testing app functionality..." + "\n" + "Type in city name that you want details of");
+
+        //taking user input
+        Scanner myObj = new Scanner(System.in);
+        String input = "";
+
+        // Wait for user input until a non-empty string is entered
+        while (input.isEmpty()) {
+            if (myObj.hasNextLine()) {
+                input = myObj.nextLine();
+            } else {
+                // Input stream has ended
+                System.out.println("No input provided. Exiting...");
+                return;
+            }
+        }
+
+        //get City based on user input
         City c = a.getCity(input);
 
         //print city info
@@ -44,6 +63,7 @@ public class App
             System.exit(-1);
         }
 
+        //for loop to try a few times in case DB is not up and loaded in time
         int retries = 10;
         for (int i = 0; i < retries; ++i)
         {
@@ -90,7 +110,6 @@ public class App
 
     /**
      * method to get a single city's details
-     * @param city_input
      */
     public City getCity(String city_input)
     {
@@ -132,7 +151,6 @@ public class App
 
     /**
      * method to print single city's info
-     * @param c
      */
     public void displayCity(City c)
     {
