@@ -139,6 +139,7 @@ public class App
                 return c;
             }
             else
+                System.out.println("Failed to get city details");
                 return null;
         }
         catch (Exception e)
