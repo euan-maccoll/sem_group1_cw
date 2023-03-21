@@ -29,6 +29,9 @@ public class App
         //print city info
         a.displayCity(c);
 
+        //query get
+        a.getAllCityPop();
+
         // Disconnect from database
         a.disconnect();
     }
@@ -154,6 +157,47 @@ public class App
                             + "City country code: " + c.city_country_code + "\n"
                             + "City district: " + c.city_district + "\n"
                             + "City population: " + c.city_population + "\n");
+        }
+    }
+
+    /**
+     * method to get all city's populations (largest to smallest)
+     */
+    public City getAllCityPop()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.id, city.name, city.countrycode, city.district, city.population  "
+                            + "FROM city "
+                            + "ORDER BY city.population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                // Loop through the query to print
+                while(rset.next()){
+                    String city_name = rset.getString("city.name");
+                    int city_population = rset.getInt("city.population");
+
+                    System.out.println("City name: " + city_name + "\n"
+                    + "City population: " + city_population);
+                }
+            }
+            else
+                System.out.println("Failed to get city details");
+            return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
         }
     }
 }
