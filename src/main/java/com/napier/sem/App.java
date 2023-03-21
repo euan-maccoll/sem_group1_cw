@@ -2,6 +2,7 @@ package com.napier.sem;
 
 import java.sql.*;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 
 public class App
@@ -29,8 +30,11 @@ public class App
         //print city info
         a.displayCity(c);
 
-        //query get
-        a.getAllCityPop();
+        // Extract city population information
+        ArrayList<City> Cities = a.getAllSalaries();
+
+        // Display all cities and population in the world
+        a.printCityPop(Cities);
 
         // Disconnect from database
         a.disconnect();
@@ -161,9 +165,9 @@ public class App
     }
 
     /**
-     * method to get all city's populations (largest to smallest)
+     * method to get all cities populations in the world (largest to smallest)
      */
-    public City getAllCityPop()
+    public ArrayList<City> getAllSalaries()
     {
         try
         {
@@ -176,22 +180,19 @@ public class App
                             + "ORDER BY city.population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            if (rset.next())
+            // Extract city information
+            ArrayList<City> Cities = new ArrayList<City>();
+            while (rset.next())
             {
-                // Loop through the query to print
-                while(rset.next()){
-                    String city_name = rset.getString("city.name");
-                    int city_population = rset.getInt("city.population");
-
-                    System.out.println("City name: " + city_name + "\n"
-                    + "City population: " + city_population);
-                }
+                City c = new City();
+                c.city_id = rset.getInt("city.id");
+                c.city_name = rset.getString("city.name");
+                c.city_country_code = rset.getString("city.countrycode");
+                c.city_district = rset.getString("city.district");
+                c.city_population = rset.getInt("city.population");
+                Cities.add(c);
             }
-            else
-                System.out.println("Failed to get city details");
-            return null;
+            return Cities;
         }
         catch (Exception e)
         {
@@ -200,4 +201,22 @@ public class App
             return null;
         }
     }
+
+    /**
+     * Prints a list of cities in the world by population largest to smallest.
+     * @param Cities The list of cities to print.
+     */
+    public void printCityPop(ArrayList<City> Cities)
+    {
+        // Print header
+        System.out.println(String.format("%-30s %-15s", "City Name", "City Population"));
+        // Loop over all employees in the list
+        for (City c : Cities)
+        {
+            String c_string =
+                    String.format("%-30s %-15s", c.city_name, c.city_population);
+            System.out.println(c_string);
+        }
+    }
+
 }
