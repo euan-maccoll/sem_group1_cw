@@ -15,25 +15,16 @@ public class App
         a.connect();
 
         //testing app and DB functionality
-        System.out.println("Testing app functionality..." + "\n" + "Type in city name that you want details of");
+        System.out.println("Testing app functionality..." + "\n" + "All variables currently hard coded while working on user input feature");
 
-        //taking user input
-        Scanner myObj = new Scanner(System.in);
-        String input = "";
+        //hardcoding values
+        System.out.println("Hardcoding values..." + "\n" + "Country: France" + "\n" + "City: Paris");
+        String example_country = "France";
+        String example_city = "Paris";
 
-        // Wait for user input until a non-empty string is entered
-        while (input.isEmpty()) {
-            if (myObj.hasNextLine()) {
-                input = myObj.nextLine();
-            } else {
-                // Input stream has ended
-                System.out.println("No input provided. Exiting...");
-                return;
-            }
-        }
 
         //get City based on user input
-        City c = a.getCity(input);
+        City c = a.getCity(example_city);
 
         //print city info
         a.displayCity(c);
