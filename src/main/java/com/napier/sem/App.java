@@ -66,6 +66,15 @@ public class App
         // Clearing previous queries results
         Cities.clear();
 
+        // Extract city population information from a continent
+        System.out.println("\n" + "All cities in a district (california is hardcoded) and their population (From largest to smallest)");
+        Cities = a.getAllCitiesPopDistrict();
+
+        // Display all cities and population in the selected district (california hardcoded to test)
+        a.printCityPop(Cities);
+        // Clearing previous queries results
+        Cities.clear();
+
         // Disconnect from database
         a.disconnect();
     }
@@ -365,5 +374,47 @@ public class App
             return null;
         }
     }
+
+    /**
+     * method to get all cities populations in a district (largest to smallest)
+     */
+
+    public ArrayList<City> getAllCitiesPopDistrict()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.id, city.name, city.countrycode, city.district, city.population "
+                            + "FROM city "
+                            + "WHERE city.district = 'California'"
+                            + "ORDER BY city.population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<City> Cities = new ArrayList<City>();
+            while (rset.next())
+            {
+                City c = new City();
+                c.city_id = rset.getInt("city.id");
+                c.city_name = rset.getString("city.name");
+                c.city_country_code = rset.getString("city.countrycode");
+                c.city_district = rset.getString("city.district");
+                c.city_population = rset.getInt("city.population");
+                Cities.add(c);
+            }
+            return Cities;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+
 
 }
