@@ -91,7 +91,17 @@ public class App
         System.out.println("\n" + "All countries in a continent (Europe is hardcoded) and their population (From largest to smallest)");
         Countries = a.getAllCountriesPopContinent();
 
-        // Display all countries and population from a continent
+        // Display all cities and population in the selected continent (Europe hardcoded to test)
+        a.printCountryPop(Countries);
+        // Clearing previous queries results
+        Countries.clear();
+
+
+        // Extract country population information
+        System.out.println("\n" + "All countries in a Region (South America is hardcoded) and their population (From largest to smallest)");
+        Countries = a.getAllCountriesPopRegion();
+
+        // Display all cities and population in the selected region (south america hardcoded to test)
         a.printCountryPop(Countries);
         // Clearing previous queries results
         Countries.clear();
@@ -506,6 +516,41 @@ public class App
                     "SELECT country.code, country.name, country.population  "
                             + "FROM country "
                             + "WHERE country.continent = 'Europe'"
+                            + "ORDER BY country.population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract country information
+            ArrayList<Country> Countries = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country c = new Country();
+                c.country_id = rset.getString("country.code");
+                c.country_name = rset.getString("country.name");
+                c.country_population = rset.getInt("country.population");
+                Countries.add(c);
+            }
+            return Countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+
+    public ArrayList<Country> getAllCountriesPopRegion()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.code, country.name, country.population  "
+                            + "FROM country "
+                            + "WHERE country.region = 'South America'"
                             + "ORDER BY country.population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
