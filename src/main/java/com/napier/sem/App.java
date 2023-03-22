@@ -52,7 +52,16 @@ public class App
         System.out.println("\n" + "All cities in a country (United Kingdom is hardcoded) and their population (From largest to smallest)");
         Cities = a.getAllCitiesPopCountry();
 
-        // Display all cities and population in the selected continent (Africa hardcoded to test)
+        // Display all cities and population in the selected continent (United Kingdom hardcoded to test)
+        a.printCityPop(Cities);
+        // Clearing previous queries results
+        Cities.clear();
+
+        // Extract city population information from a continent
+        System.out.println("\n" + "All cities in a region (North America is hardcoded) and their population (From largest to smallest)");
+        Cities = a.getAllCitiesPopRegion();
+
+        // Display all cities and population in the selected continent (North America hardcoded to test)
         a.printCityPop(Cities);
         // Clearing previous queries results
         Cities.clear();
@@ -293,6 +302,45 @@ public class App
                     "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.name "
                             + "FROM city, country "
                             + "WHERE country.code = city.countrycode AND country.name = 'United Kingdom'"
+                            + "ORDER BY city.population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<City> Cities = new ArrayList<City>();
+            while (rset.next())
+            {
+                City c = new City();
+                c.city_id = rset.getInt("city.id");
+                c.city_name = rset.getString("city.name");
+                c.city_country_code = rset.getString("city.countrycode");
+                c.city_district = rset.getString("city.district");
+                c.city_population = rset.getInt("city.population");
+                Cities.add(c);
+            }
+            return Cities;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    /**
+     * method to get all cities populations in a region (largest to smallest)
+     */
+    public ArrayList<City> getAllCitiesPopRegion()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.region "
+                            + "FROM city, country "
+                            + "WHERE country.code = city.countrycode AND country.region = 'North America'"
                             + "ORDER BY city.population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
