@@ -249,7 +249,7 @@ public class App
     {
         // Print header
         System.out.println(String.format("%-30s %-15s", "City Name", "City Population"));
-        // Loop over all employees in the list
+        // Loop over all cities in the list
         for (City c : Cities)
         {
             String c_string =
@@ -416,5 +416,20 @@ public class App
     }
 
 
-
+    /**
+     * Prints a list of countries and their populations.
+     * @param Countries The list of cities to print.
+     */
+    public void printCountryPop(ArrayList<Country> Countries)
+    {
+        // Print header
+        System.out.println(String.format("%-30s %-15s", "Country Name", "Country Population"));
+        // Loop over all countries in the list
+        for (Country c : Countries)
+        {
+            String c_string =
+                    String.format("%-30s %-15s", c.country_name, c.country_population);
+            System.out.println(c_string);
+        }
+    }
 }
