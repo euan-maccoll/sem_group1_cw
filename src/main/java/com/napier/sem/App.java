@@ -66,7 +66,7 @@ public class App
         // Clearing previous queries results
         Cities.clear();
 
-        // Extract city population information from a continent
+        // Extract city population information from a district
         System.out.println("\n" + "All cities in a district (california is hardcoded) and their population (From largest to smallest)");
         Cities = a.getAllCitiesPopDistrict();
 
@@ -82,6 +82,16 @@ public class App
         ArrayList<Country> Countries = a.getAllCountriesPop();
 
         // Display all countries and population in the world
+        a.printCountryPop(Countries);
+        // Clearing previous queries results
+        Countries.clear();
+
+
+        // Extract country population information
+        System.out.println("\n" + "All countries in a continent (Europe is hardcoded) and their population (From largest to smallest)");
+        Countries = a.getAllCountriesPopContinent();
+
+        // Display all countries and population from a continent
         a.printCountryPop(Countries);
         // Clearing previous queries results
         Countries.clear();
@@ -459,6 +469,43 @@ public class App
             String strSelect =
                     "SELECT country.code, country.name, country.population  "
                             + "FROM country "
+                            + "ORDER BY country.population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract country information
+            ArrayList<Country> Countries = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country c = new Country();
+                c.country_id = rset.getString("country.code");
+                c.country_name = rset.getString("country.name");
+                c.country_population = rset.getInt("country.population");
+                Countries.add(c);
+            }
+            return Countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    /**
+     * method to get all countries populations in the world (largest to smallest)
+     */
+    public ArrayList<Country> getAllCountriesPopContinent()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.code, country.name, country.population  "
+                            + "FROM country "
+                            + "WHERE country.continent = 'Europe'"
                             + "ORDER BY country.population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
