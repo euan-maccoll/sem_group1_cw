@@ -36,7 +36,6 @@ public class App
 
         // Display all cities and population in the world
         a.printCityPop(Cities);
-
         // Clearing previous queries results
         Cities.clear();
 
@@ -46,6 +45,17 @@ public class App
 
         // Display all cities and population in the selected continent (Africa hardcoded to test)
         a.printCityPop(Cities);
+        // Clearing previous queries results
+        Cities.clear();
+
+        // Extract city population information from a continent
+        System.out.println("\n" + "All cities in a country (United Kingdom is hardcoded) and their population (From largest to smallest)");
+        Cities = a.getAllCitiesPopCountry();
+
+        // Display all cities and population in the selected continent (Africa hardcoded to test)
+        a.printCityPop(Cities);
+        // Clearing previous queries results
+        Cities.clear();
 
         // Disconnect from database
         a.disconnect();
@@ -244,6 +254,45 @@ public class App
                     "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.continent "
                             + "FROM city, country "
                             + "WHERE country.code = city.countrycode AND country.continent = 'Africa'"
+                            + "ORDER BY city.population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<City> Cities = new ArrayList<City>();
+            while (rset.next())
+            {
+                City c = new City();
+                c.city_id = rset.getInt("city.id");
+                c.city_name = rset.getString("city.name");
+                c.city_country_code = rset.getString("city.countrycode");
+                c.city_district = rset.getString("city.district");
+                c.city_population = rset.getInt("city.population");
+                Cities.add(c);
+            }
+            return Cities;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    /**
+     * method to get all cities populations in a country (largest to smallest)
+     */
+    public ArrayList<City> getAllCitiesPopCountry()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.name "
+                            + "FROM city, country "
+                            + "WHERE country.code = city.countrycode AND country.name = 'United Kingdom'"
                             + "ORDER BY city.population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
