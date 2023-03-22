@@ -31,9 +31,20 @@ public class App
         a.displayCity(c);
 
         // Extract city population information
-        ArrayList<City> Cities = a.getAllSalaries();
+        System.out.println("\n" + "All cities in the world and their population (From largest to smallest)");
+        ArrayList<City> Cities = a.getAllCitiesPop();
 
         // Display all cities and population in the world
+        a.printCityPop(Cities);
+
+        // Clearing previous queries results
+        Cities.clear();
+
+        // Extract city population information from a continent
+        System.out.println("\n" + "All cities in a continent (Africa is hardcoded) and their population (From largest to smallest)");
+        Cities = a.getAllCitiesPopContinent();
+
+        // Display all cities and population in the selected continent (Africa hardcoded to test)
         a.printCityPop(Cities);
 
         // Disconnect from database
@@ -167,7 +178,7 @@ public class App
     /**
      * method to get all cities populations in the world (largest to smallest)
      */
-    public ArrayList<City> getAllSalaries()
+    public ArrayList<City> getAllCitiesPop()
     {
         try
         {
@@ -203,7 +214,7 @@ public class App
     }
 
     /**
-     * Prints a list of cities in the world by population largest to smallest.
+     * Prints a list of cities and their populations.
      * @param Cities The list of cities to print.
      */
     public void printCityPop(ArrayList<City> Cities)
@@ -216,6 +227,45 @@ public class App
             String c_string =
                     String.format("%-30s %-15s", c.city_name, c.city_population);
             System.out.println(c_string);
+        }
+    }
+
+    /**
+     * method to get all cities populations in a continent (largest to smallest)
+     */
+    public ArrayList<City> getAllCitiesPopContinent()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.continent "
+                            + "FROM city, country "
+                            + "WHERE country.code = city.countrycode AND country.continent = 'Africa'"
+                            + "ORDER BY city.population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<City> Cities = new ArrayList<City>();
+            while (rset.next())
+            {
+                City c = new City();
+                c.city_id = rset.getInt("city.id");
+                c.city_name = rset.getString("city.name");
+                c.city_country_code = rset.getString("city.countrycode");
+                c.city_district = rset.getString("city.district");
+                c.city_population = rset.getInt("city.population");
+                Cities.add(c);
+            }
+            return Cities;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
         }
     }
 
