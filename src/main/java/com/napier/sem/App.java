@@ -278,11 +278,18 @@ public class App
      */
     public void printCityPop(ArrayList<City> Cities)
     {
+        //Check cities is not null
+        if (Cities == null){
+            System.out.println("No cities");
+            return;
+        }
         // Print header
         System.out.println(String.format("%-30s %-15s", "City Name", "City Population"));
         // Loop over all cities in the list
         for (City c : Cities)
         {
+            if (c == null)
+                continue;
             String c_string =
                     String.format("%-30s %-15s", c.city_name, c.city_population);
             System.out.println(c_string);
