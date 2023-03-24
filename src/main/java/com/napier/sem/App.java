@@ -13,7 +13,11 @@ public class App
         App a = new App();
 
         // Connect to database
-        a.connect();
+        if(args.length < 1){
+            a.connect("localhost:33060", 30000);
+        }else{
+            a.connect(args[0], Integer.parseInt(args[1]));
+        }
 
         //testing app and DB functionality
         System.out.println("Testing app functionality..." + "\n" + "All variables currently hard coded while working on user input feature");
@@ -118,7 +122,7 @@ public class App
     /**
      * Connect to the MySQL database.
      */
-    public void connect()
+    public void connect(String location, int delay)
     {
         try
         {
@@ -139,9 +143,9 @@ public class App
             try
             {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(delay);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://" + location + "/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
