@@ -23,12 +23,10 @@ public class countryQuery {
         }
     }
 
-
-
     /**
      * method to get all countries populations in the world (largest to smallest)
      */
-    public static ArrayList<Country> getAllCountriesPop(Connection con)
+    public static ArrayList<Country> getAllCountriesPop(Connection con, int limit)
     {
         try
         {
@@ -39,6 +37,9 @@ public class countryQuery {
                     "SELECT country.code, country.name, country.population  "
                             + "FROM country "
                             + "ORDER BY country.population DESC";
+            if(limit > 0){
+                strSelect += " LIMIT " + limit;
+            }
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract country information
@@ -64,7 +65,7 @@ public class countryQuery {
     /**
      * method to get all countries populations in the world (largest to smallest)
      */
-    public static ArrayList<Country> getAllCountriesPopContinent(Connection con, String continent_input)
+    public static ArrayList<Country> getAllCountriesPopContinent(Connection con, String continent_input, int limit)
     {
         //add quotation marks for SQL variable
         continent_input = "'" + continent_input + "'";
@@ -78,6 +79,9 @@ public class countryQuery {
                             + "FROM country "
                             + "WHERE country.continent = " + continent_input
                             + "ORDER BY country.population DESC";
+            if(limit > 0){
+                strSelect += " LIMIT " + limit;
+            }
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract country information
@@ -101,7 +105,7 @@ public class countryQuery {
     }
 
 
-    public static ArrayList<Country> getAllCountriesPopRegion(Connection con, String input_region)
+    public static ArrayList<Country> getAllCountriesPopRegion(Connection con, String input_region, int limit)
     {
         //add quotation marks for SQL variable
         input_region = "'" + input_region + "'";
@@ -115,6 +119,9 @@ public class countryQuery {
                             + "FROM country "
                             + "WHERE country.region = " + input_region
                             + "ORDER BY country.population DESC";
+            if(limit > 0){
+                strSelect += " LIMIT " + limit;
+            }
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract country information
