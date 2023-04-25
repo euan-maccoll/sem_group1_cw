@@ -15,6 +15,7 @@ public class App
         // Create new Class
         new citiesQuery();
         new countryQuery();
+        new capitalCitiesQuery();
 
         // Connect to database
         a.connect();
@@ -30,13 +31,6 @@ public class App
         String example_region = "North America";
         String example_district = "California";
 
-
-
-        //get City based on user input
-        City c = a.getCity(example_city);
-
-        //print city info
-        a.displayCity(c);
 
         // Extract city population information
         System.out.println("\n" + "All cities in the world and their population (From largest to smallest)");

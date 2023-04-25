@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class countryQuery {
     /**
      * Prints a list of countries and their populations.
-     * @param Countries The list of cities to print.
+     * @param Countries The list of countries to print.
      */
     public static void printCountryPop(ArrayList<Country> Countries)
     {

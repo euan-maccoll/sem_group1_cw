@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class citiesQuery {
+
     /**
      * Prints a list of cities and their populations.
      *
