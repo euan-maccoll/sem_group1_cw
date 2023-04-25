@@ -66,7 +66,7 @@ public class citiesQuery {
     /**
      * method to get all cities populations in a continent (largest to smallest)
      */
-    public ArrayList<City> getAllCitiesPopContinent(Connection con, String continent_input) {
+    public static ArrayList<City> getAllCitiesPopContinent(Connection con, String continent_input) {
         //add quotation marks for SQL variable
         continent_input = "'" + continent_input + "'";
         try {

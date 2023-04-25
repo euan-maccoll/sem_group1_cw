@@ -28,89 +28,33 @@ public class App
         System.out.println("Testing app functionality..." + "\n" + "All variables currently hard coded while working on user input feature");
 
         //hardcoding values
-        System.out.println("Hardcoding values..." + "\n" + "Country: France" + "\n" + "City: Paris" + "\n" + "Continent: Africa" + "\n" + "Region: North America" + "\n" + "District: California");
+        System.out.println("Hardcoding values..." + "\n" + "Country: France" + "\n" + "City: Paris" + "\n" + "Continent: Africa" + "\n" + "Region: North America" + "\n" + "District: California" + "\n" + "Results Limit: 0");
         String example_country = "France";
         String example_city = "Paris";
         String example_continent = "Africa";
         String example_region = "North America";
         String example_district = "California";
+        int example_limit = 0;
 
 
-        // Extract city population information
-        System.out.println("\n" + "All cities in the world and their population (From largest to smallest)");
-        ArrayList<City> Cities = citiesQuery.getAllCitiesPop(con);
+        //get City based on user input
+        City c = a.getCity(example_city);
 
-        // Display all cities and population in the world
-        citiesQuery.printCityPop(Cities);
-        // Clearing previous queries results
-        Cities.clear();
+        //print city info
+        a.displayCity(c);
 
-        // Extract city population information from a continent
-        System.out.println("\n" + "All cities in a continent and their population (From largest to smallest)");
-        Cities = new citiesQuery().getAllCitiesPopContinent(con, example_continent);
+        // Calling all cityQueries
+        cityQueries(example_limit, example_continent, example_region, example_country, example_district);
 
-        // Display all cities and population in the selected continent
-        citiesQuery.printCityPop(Cities);
-        // Clearing previous queries results
-        Cities.clear();
+        // Calling all countryQueries
+        countryQueries(example_limit, example_continent, example_region);
 
-        // Extract city population information from a continent
-        System.out.println("\n" + "All cities in a country and their population (From largest to smallest)");
-        Cities = citiesQuery.getAllCitiesPopCountry(con, example_country);
+        // Testing Queries with limits
+        System.out.println("\n" + "Hardcoding values..." + "\n" + "Limit: 3");
+        example_limit = 3;
 
-        // Display all cities and population in the selected continent
-        citiesQuery.printCityPop(Cities);
-        // Clearing previous queries results
-        Cities.clear();
-
-        // Extract city population information from a continent
-        System.out.println("\n" + "All cities in a region and their population (From largest to smallest)");
-        Cities = citiesQuery.getAllCitiesPopRegion(con, example_region);
-
-        // Display all cities and population in the selected continent
-        citiesQuery.printCityPop(Cities);
-        // Clearing previous queries results
-        Cities.clear();
-
-        // Extract city population information from a district
-        System.out.println("\n" + "All cities in a district and their population (From largest to smallest)");
-        Cities = citiesQuery.getAllCitiesPopDistrict(con, example_district);
-
-        // Display all cities and population in the selected district
-        citiesQuery.printCityPop(Cities);
-        // Clearing previous queries results
-        Cities.clear();
-
-
-
-        // Extract country population information
-        System.out.println("\n" + "All countries in the world and their population (From largest to smallest)");
-        ArrayList<Country> Countries = countryQuery.getAllCountriesPop(con);
-
-        // Display all countries and population in the world
-        countryQuery.printCountryPop(Countries);
-        // Clearing previous queries results
-        Countries.clear();
-
-
-        // Extract country population information
-        System.out.println("\n" + "All countries in a continent and their population (From largest to smallest)");
-        Countries = countryQuery.getAllCountriesPopContinent(con, example_continent);
-
-        // Display all cities and population in the selected continent
-        countryQuery.printCountryPop(Countries);
-        // Clearing previous queries results
-        Countries.clear();
-
-
-        // Extract country population information
-        System.out.println("\n" + "All countries in a Region and their population (From largest to smallest)");
-        Countries = countryQuery.getAllCountriesPopRegion(con, example_region);
-
-        // Display all cities and population in the selected region
-        countryQuery.printCountryPop(Countries);
-        // Clearing previous queries results
-        Countries.clear();
+        // Calling country queries with limit of 3
+        countryQueries(example_limit, example_continent, example_region);
 
         // Disconnect from database
         a.disconnect();
@@ -238,5 +182,83 @@ public class App
                             + "City district: " + c.city_district + "\n"
                             + "City population: " + c.city_population + "\n");
         }
+    }
+
+    public static void countryQueries(int example_limit, String example_continent, String example_region){
+        // Extract country population information
+        System.out.println("\n" + "All countries in the world and their population (From largest to smallest)");
+        ArrayList<Country> Countries = countryQuery.getAllCountriesPop(con, example_limit);
+
+        // Display all countries and population in the world
+        countryQuery.printCountryPop(Countries);
+        // Clearing previous queries results
+        Countries.clear();
+
+
+        // Extract country population information
+        System.out.println("\n" + "All countries in a continent and their population (From largest to smallest)");
+        Countries = countryQuery.getAllCountriesPopContinent(con, example_continent, example_limit);
+
+        // Display all cities and population in the selected continent
+        countryQuery.printCountryPop(Countries);
+        // Clearing previous queries results
+        Countries.clear();
+
+
+        // Extract country population information
+        System.out.println("\n" + "All countries in a Region and their population (From largest to smallest)");
+        Countries = countryQuery.getAllCountriesPopRegion(con, example_region, example_limit);
+
+        // Display all cities and population in the selected region
+        countryQuery.printCountryPop(Countries);
+        // Clearing previous queries results
+        Countries.clear();
+    }
+
+    public static void cityQueries(int example_limit, String example_continent, String example_region, String example_country, String example_district){
+        // Extract city population information
+        System.out.println("\n" + "All cities in the world and their population (From largest to smallest)");
+        ArrayList<City> Cities = citiesQuery.getAllCitiesPop(con);
+
+        // Display all cities and population in the world
+        citiesQuery.printCityPop(Cities);
+        // Clearing previous queries results
+        Cities.clear();
+
+        // Extract city population information from a continent
+        System.out.println("\n" + "All cities in a continent and their population (From largest to smallest)");
+        Cities = citiesQuery.getAllCitiesPopContinent(con, example_continent);
+
+        // Display all cities and population in the selected continent
+        citiesQuery.printCityPop(Cities);
+        // Clearing previous queries results
+        Cities.clear();
+
+        // Extract city population information from a continent
+        System.out.println("\n" + "All cities in a country and their population (From largest to smallest)");
+        Cities = citiesQuery.getAllCitiesPopCountry(con, example_country);
+
+        // Display all cities and population in the selected continent
+        citiesQuery.printCityPop(Cities);
+        // Clearing previous queries results
+        Cities.clear();
+
+        // Extract city population information from a continent
+        System.out.println("\n" + "All cities in a region and their population (From largest to smallest)");
+        Cities = citiesQuery.getAllCitiesPopRegion(con, example_region);
+
+        // Display all cities and population in the selected continent
+        citiesQuery.printCityPop(Cities);
+        // Clearing previous queries results
+        Cities.clear();
+
+        // Extract city population information from a district
+        System.out.println("\n" + "All cities in a district and their population (From largest to smallest)");
+        Cities = citiesQuery.getAllCitiesPopDistrict(con, example_district);
+
+        // Display all cities and population in the selected district
+        citiesQuery.printCityPop(Cities);
+        // Clearing previous queries results
+        Cities.clear();
     }
 }
