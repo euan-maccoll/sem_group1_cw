@@ -33,7 +33,7 @@ public class citiesQuery {
     /**
      * method to get all cities populations in the world (largest to smallest)
      */
-    public static ArrayList<City> getAllCitiesPop(Connection con) {
+    public static ArrayList<City> getAllCitiesPop(Connection con, int limit) {
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -42,6 +42,9 @@ public class citiesQuery {
                     "SELECT city.id, city.name, city.countrycode, city.district, city.population  "
                             + "FROM city "
                             + "ORDER BY city.population DESC";
+            if(limit > 0){
+                strSelect += " LIMIT " + limit;
+            }
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
@@ -66,7 +69,7 @@ public class citiesQuery {
     /**
      * method to get all cities populations in a continent (largest to smallest)
      */
-    public static ArrayList<City> getAllCitiesPopContinent(Connection con, String continent_input) {
+    public static ArrayList<City> getAllCitiesPopContinent(Connection con, String continent_input, int limit) {
         //add quotation marks for SQL variable
         continent_input = "'" + continent_input + "'";
         try {
@@ -78,6 +81,9 @@ public class citiesQuery {
                             + "FROM city, country "
                             + "WHERE country.code = city.countrycode AND country.continent = " + continent_input
                             + "ORDER BY city.population DESC";
+            if(limit > 0){
+                strSelect += " LIMIT " + limit;
+            }
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
@@ -102,7 +108,7 @@ public class citiesQuery {
     /**
      * method to get all cities populations in a country (largest to smallest)
      */
-    public static ArrayList<City> getAllCitiesPopCountry(Connection con, String country_input) {
+    public static ArrayList<City> getAllCitiesPopCountry(Connection con, String country_input, int limit) {
         //add quotation marks for SQL variable
         country_input = "'" + country_input + "'";
         try {
@@ -114,6 +120,9 @@ public class citiesQuery {
                             + "FROM city, country "
                             + "WHERE country.code = city.countrycode AND country.name = " + country_input
                             + "ORDER BY city.population DESC";
+            if(limit > 0){
+                strSelect += " LIMIT " + limit;
+            }
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
@@ -138,7 +147,7 @@ public class citiesQuery {
     /**
      * method to get all cities populations in a region (largest to smallest)
      */
-    public static ArrayList<City> getAllCitiesPopRegion(Connection con, String input_region) {
+    public static ArrayList<City> getAllCitiesPopRegion(Connection con, String input_region, int limit) {
         //add quotation marks for SQL variable
         input_region = "'" + input_region + "'";
         try {
@@ -150,6 +159,9 @@ public class citiesQuery {
                             + "FROM city, country "
                             + "WHERE country.code = city.countrycode AND country.region = " + input_region
                             + "ORDER BY city.population DESC";
+            if(limit > 0){
+                strSelect += " LIMIT " + limit;
+            }
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
@@ -175,7 +187,7 @@ public class citiesQuery {
      * method to get all cities populations in a district (largest to smallest)
      */
 
-    public static ArrayList<City> getAllCitiesPopDistrict(Connection con, String input_district) {
+    public static ArrayList<City> getAllCitiesPopDistrict(Connection con, String input_district, int limit) {
         //add quotation marks for SQL variable
         input_district = "'" + input_district + "'";
         try {
@@ -187,6 +199,9 @@ public class citiesQuery {
                             + "FROM city "
                             + "WHERE city.district = " + input_district
                             + "ORDER BY city.population DESC";
+            if(limit > 0){
+                strSelect += " LIMIT " + limit;
+            }
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
