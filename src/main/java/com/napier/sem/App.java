@@ -22,6 +22,7 @@ public class App
         new citiesQuery();
         new countryQuery();
         new capitalCitiesQuery();
+        new comparisonQuery();
 
 
         //testing app and DB functionality
@@ -45,13 +46,13 @@ public class App
         // Calling all cityQueries
         System.out.println("Calling all city queries");
         cityQueries(example_limit, example_continent, example_region, example_country, example_district);
-        */
+
 
         // Calling all capitalCity Queries
         System.out.println("Calling all capital city queries");
         capitalCityQueries(example_limit, example_continent, example_region, example_country, example_district);
 
-        /*
+
         // Testing Queries with limits
         System.out.println("\n" + "Hardcoding values..." + "\n" + "Limit: 3");
         example_limit = 3;
@@ -64,6 +65,7 @@ public class App
         countryQueries(example_limit, example_continent, example_region);
         */
 
+        populationComparisonQueries(example_continent, example_region, example_country);
 
         // Disconnect from database
         a.disconnect();
@@ -302,5 +304,16 @@ public class App
         capitalCitiesQuery.printCapitalCityPop(CapitalCities);
         // Clearing previous query results
         CapitalCities.clear();
+    }
+
+    public static void populationComparisonQueries(String example_continent, String example_region, String example_country){
+        ArrayList<Country> Countries = comparisonQuery.getPopCountryComparison(con, example_country);
+        comparisonQuery.printPopCountryComparison(Countries);
+
+        // Clearing previous queries results
+        Countries.clear();
+
+        Countries = comparisonQuery.getPopRegionComparison(con, example_region);
+        comparisonQuery.printPopRegionComparison(Countries);
     }
 }

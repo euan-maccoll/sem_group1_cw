@@ -19,4 +19,10 @@ public class Country {
 
     //capital
     public int country_capital;
+
+    // city population
+    public int city_population;
+
+    // non city population
+    public int non_city_population;
 }
