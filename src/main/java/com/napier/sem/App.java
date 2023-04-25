@@ -12,6 +12,10 @@ public class App
         // Create new Application
         App a = new App();
 
+        // Create new Class
+        new citiesQuery();
+        new countryQuery();
+
         // Connect to database
         a.connect();
 
@@ -19,9 +23,13 @@ public class App
         System.out.println("Testing app functionality..." + "\n" + "All variables currently hard coded while working on user input feature");
 
         //hardcoding values
-        System.out.println("Hardcoding values..." + "\n" + "Country: France" + "\n" + "City: Paris");
+        System.out.println("Hardcoding values..." + "\n" + "Country: France" + "\n" + "City: Paris" + "\n" + "Continent: Africa" + "\n" + "Region: North America" + "\n" + "District: California");
         String example_country = "France";
         String example_city = "Paris";
+        String example_continent = "Africa";
+        String example_region = "North America";
+        String example_district = "California";
+
 
 
         //get City based on user input
@@ -32,46 +40,46 @@ public class App
 
         // Extract city population information
         System.out.println("\n" + "All cities in the world and their population (From largest to smallest)");
-        ArrayList<City> Cities = a.getAllCitiesPop();
+        ArrayList<City> Cities = citiesQuery.getAllCitiesPop(con);
 
         // Display all cities and population in the world
-        a.printCityPop(Cities);
+        citiesQuery.printCityPop(Cities);
         // Clearing previous queries results
         Cities.clear();
 
         // Extract city population information from a continent
-        System.out.println("\n" + "All cities in a continent (Africa is hardcoded) and their population (From largest to smallest)");
-        Cities = a.getAllCitiesPopContinent();
+        System.out.println("\n" + "All cities in a continent and their population (From largest to smallest)");
+        Cities = new citiesQuery().getAllCitiesPopContinent(con, example_continent);
 
-        // Display all cities and population in the selected continent (Africa hardcoded to test)
-        a.printCityPop(Cities);
+        // Display all cities and population in the selected continent
+        citiesQuery.printCityPop(Cities);
         // Clearing previous queries results
         Cities.clear();
 
         // Extract city population information from a continent
-        System.out.println("\n" + "All cities in a country (United Kingdom is hardcoded) and their population (From largest to smallest)");
-        Cities = a.getAllCitiesPopCountry();
+        System.out.println("\n" + "All cities in a country and their population (From largest to smallest)");
+        Cities = citiesQuery.getAllCitiesPopCountry(con, example_country);
 
-        // Display all cities and population in the selected continent (United Kingdom hardcoded to test)
-        a.printCityPop(Cities);
+        // Display all cities and population in the selected continent
+        citiesQuery.printCityPop(Cities);
         // Clearing previous queries results
         Cities.clear();
 
         // Extract city population information from a continent
-        System.out.println("\n" + "All cities in a region (North America is hardcoded) and their population (From largest to smallest)");
-        Cities = a.getAllCitiesPopRegion();
+        System.out.println("\n" + "All cities in a region and their population (From largest to smallest)");
+        Cities = citiesQuery.getAllCitiesPopRegion(con, example_region);
 
-        // Display all cities and population in the selected continent (North America hardcoded to test)
-        a.printCityPop(Cities);
+        // Display all cities and population in the selected continent
+        citiesQuery.printCityPop(Cities);
         // Clearing previous queries results
         Cities.clear();
 
         // Extract city population information from a district
-        System.out.println("\n" + "All cities in a district (california is hardcoded) and their population (From largest to smallest)");
-        Cities = a.getAllCitiesPopDistrict();
+        System.out.println("\n" + "All cities in a district and their population (From largest to smallest)");
+        Cities = citiesQuery.getAllCitiesPopDistrict(con, example_district);
 
-        // Display all cities and population in the selected district (california hardcoded to test)
-        a.printCityPop(Cities);
+        // Display all cities and population in the selected district
+        citiesQuery.printCityPop(Cities);
         // Clearing previous queries results
         Cities.clear();
 
@@ -79,30 +87,30 @@ public class App
 
         // Extract country population information
         System.out.println("\n" + "All countries in the world and their population (From largest to smallest)");
-        ArrayList<Country> Countries = a.getAllCountriesPop();
+        ArrayList<Country> Countries = countryQuery.getAllCountriesPop(con);
 
         // Display all countries and population in the world
-        a.printCountryPop(Countries);
+        countryQuery.printCountryPop(Countries);
         // Clearing previous queries results
         Countries.clear();
 
 
         // Extract country population information
-        System.out.println("\n" + "All countries in a continent (Europe is hardcoded) and their population (From largest to smallest)");
-        Countries = a.getAllCountriesPopContinent();
+        System.out.println("\n" + "All countries in a continent and their population (From largest to smallest)");
+        Countries = countryQuery.getAllCountriesPopContinent(con, example_continent);
 
-        // Display all cities and population in the selected continent (Europe hardcoded to test)
-        a.printCountryPop(Countries);
+        // Display all cities and population in the selected continent
+        countryQuery.printCountryPop(Countries);
         // Clearing previous queries results
         Countries.clear();
 
 
         // Extract country population information
-        System.out.println("\n" + "All countries in a Region (South America is hardcoded) and their population (From largest to smallest)");
-        Countries = a.getAllCountriesPopRegion();
+        System.out.println("\n" + "All countries in a Region and their population (From largest to smallest)");
+        Countries = countryQuery.getAllCountriesPopRegion(con, example_region);
 
-        // Display all cities and population in the selected region (south america hardcoded to test)
-        a.printCountryPop(Countries);
+        // Display all cities and population in the selected region
+        countryQuery.printCountryPop(Countries);
         // Clearing previous queries results
         Countries.clear();
 
@@ -113,7 +121,7 @@ public class App
     /**
      * Connection to MySQL database.
      */
-    private Connection con = null;
+    private static Connection con = null;
 
     /**
      * Connect to the MySQL database.
@@ -231,353 +239,6 @@ public class App
                             + "City country code: " + c.city_country_code + "\n"
                             + "City district: " + c.city_district + "\n"
                             + "City population: " + c.city_population + "\n");
-        }
-    }
-
-    /**
-     * method to get all cities populations in the world (largest to smallest)
-     */
-    public ArrayList<City> getAllCitiesPop()
-    {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT city.id, city.name, city.countrycode, city.district, city.population  "
-                            + "FROM city "
-                            + "ORDER BY city.population DESC";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract city information
-            ArrayList<City> Cities = new ArrayList<City>();
-            while (rset.next())
-            {
-                City c = new City();
-                c.city_id = rset.getInt("city.id");
-                c.city_name = rset.getString("city.name");
-                c.city_country_code = rset.getString("city.countrycode");
-                c.city_district = rset.getString("city.district");
-                c.city_population = rset.getInt("city.population");
-                Cities.add(c);
-            }
-            return Cities;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
-            return null;
-        }
-    }
-
-    /**
-     * Prints a list of cities and their populations.
-     * @param Cities The list of cities to print.
-     */
-    public void printCityPop(ArrayList<City> Cities)
-    {
-        //Check cities is not null
-        if (Cities == null){
-            System.out.println("No cities");
-            return;
-        }
-        // Print header
-        System.out.println(String.format("%-30s %-15s", "City Name", "City Population"));
-        // Loop over all cities in the list
-        for (City c : Cities)
-        {
-            if (c == null)
-                continue;
-            String c_string =
-                    String.format("%-30s %-15s", c.city_name, c.city_population);
-            System.out.println(c_string);
-        }
-    }
-
-    /**
-     * method to get all cities populations in a continent (largest to smallest)
-     */
-    public ArrayList<City> getAllCitiesPopContinent()
-    {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.continent "
-                            + "FROM city, country "
-                            + "WHERE country.code = city.countrycode AND country.continent = 'Africa'"
-                            + "ORDER BY city.population DESC";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract city information
-            ArrayList<City> Cities = new ArrayList<City>();
-            while (rset.next())
-            {
-                City c = new City();
-                c.city_id = rset.getInt("city.id");
-                c.city_name = rset.getString("city.name");
-                c.city_country_code = rset.getString("city.countrycode");
-                c.city_district = rset.getString("city.district");
-                c.city_population = rset.getInt("city.population");
-                Cities.add(c);
-            }
-            return Cities;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
-            return null;
-        }
-    }
-
-    /**
-     * method to get all cities populations in a country (largest to smallest)
-     */
-    public ArrayList<City> getAllCitiesPopCountry()
-    {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.name "
-                            + "FROM city, country "
-                            + "WHERE country.code = city.countrycode AND country.name = 'United Kingdom'"
-                            + "ORDER BY city.population DESC";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract city information
-            ArrayList<City> Cities = new ArrayList<City>();
-            while (rset.next())
-            {
-                City c = new City();
-                c.city_id = rset.getInt("city.id");
-                c.city_name = rset.getString("city.name");
-                c.city_country_code = rset.getString("city.countrycode");
-                c.city_district = rset.getString("city.district");
-                c.city_population = rset.getInt("city.population");
-                Cities.add(c);
-            }
-            return Cities;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
-            return null;
-        }
-    }
-
-    /**
-     * method to get all cities populations in a region (largest to smallest)
-     */
-    public ArrayList<City> getAllCitiesPopRegion()
-    {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.region "
-                            + "FROM city, country "
-                            + "WHERE country.code = city.countrycode AND country.region = 'North America'"
-                            + "ORDER BY city.population DESC";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract city information
-            ArrayList<City> Cities = new ArrayList<City>();
-            while (rset.next())
-            {
-                City c = new City();
-                c.city_id = rset.getInt("city.id");
-                c.city_name = rset.getString("city.name");
-                c.city_country_code = rset.getString("city.countrycode");
-                c.city_district = rset.getString("city.district");
-                c.city_population = rset.getInt("city.population");
-                Cities.add(c);
-            }
-            return Cities;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
-            return null;
-        }
-    }
-
-    /**
-     * method to get all cities populations in a district (largest to smallest)
-     */
-
-    public ArrayList<City> getAllCitiesPopDistrict()
-    {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT city.id, city.name, city.countrycode, city.district, city.population "
-                            + "FROM city "
-                            + "WHERE city.district = 'California'"
-                            + "ORDER BY city.population DESC";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract city information
-            ArrayList<City> Cities = new ArrayList<City>();
-            while (rset.next())
-            {
-                City c = new City();
-                c.city_id = rset.getInt("city.id");
-                c.city_name = rset.getString("city.name");
-                c.city_country_code = rset.getString("city.countrycode");
-                c.city_district = rset.getString("city.district");
-                c.city_population = rset.getInt("city.population");
-                Cities.add(c);
-            }
-            return Cities;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
-            return null;
-        }
-    }
-
-
-    /**
-     * Prints a list of countries and their populations.
-     * @param Countries The list of cities to print.
-     */
-    public void printCountryPop(ArrayList<Country> Countries)
-    {
-        // Print header
-        System.out.println(String.format("%-30s %-15s", "Country Name", "Country Population"));
-        // Loop over all countries in the list
-        for (Country c : Countries)
-        {
-            String c_string =
-                    String.format("%-30s %-15s", c.country_name, c.country_population);
-            System.out.println(c_string);
-        }
-    }
-
-
-
-    /**
-     * method to get all countries populations in the world (largest to smallest)
-     */
-    public ArrayList<Country> getAllCountriesPop()
-    {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT country.code, country.name, country.population  "
-                            + "FROM country "
-                            + "ORDER BY country.population DESC";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract country information
-            ArrayList<Country> Countries = new ArrayList<Country>();
-            while (rset.next())
-            {
-                Country c = new Country();
-                c.country_id = rset.getString("country.code");
-                c.country_name = rset.getString("country.name");
-                c.country_population = rset.getInt("country.population");
-                Countries.add(c);
-            }
-            return Countries;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
-    }
-
-    /**
-     * method to get all countries populations in the world (largest to smallest)
-     */
-    public ArrayList<Country> getAllCountriesPopContinent()
-    {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT country.code, country.name, country.population  "
-                            + "FROM country "
-                            + "WHERE country.continent = 'Europe'"
-                            + "ORDER BY country.population DESC";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract country information
-            ArrayList<Country> Countries = new ArrayList<Country>();
-            while (rset.next())
-            {
-                Country c = new Country();
-                c.country_id = rset.getString("country.code");
-                c.country_name = rset.getString("country.name");
-                c.country_population = rset.getInt("country.population");
-                Countries.add(c);
-            }
-            return Countries;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
-    }
-
-
-    public ArrayList<Country> getAllCountriesPopRegion()
-    {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT country.code, country.name, country.population  "
-                            + "FROM country "
-                            + "WHERE country.region = 'South America'"
-                            + "ORDER BY country.population DESC";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract country information
-            ArrayList<Country> Countries = new ArrayList<Country>();
-            while (rset.next())
-            {
-                Country c = new Country();
-                c.country_id = rset.getString("country.code");
-                c.country_name = rset.getString("country.name");
-                c.country_population = rset.getInt("country.population");
-                Countries.add(c);
-            }
-            return Countries;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
         }
     }
 }
