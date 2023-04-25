@@ -2,11 +2,8 @@ package com.napier.sem;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class AppTest
 {
@@ -21,38 +18,38 @@ public class AppTest
     /**
      * Test to see if app can handle if city is null e.g. if query doesn't return a list of cities
      */
-    /*@Test
+    @Test
     void printCityPopTestNull()
     {
-        app.printCityPop(null);
+        citiesQuery.printCities(null);
     }
 
     /**
      * Test to see if app can handle if cities array is empty
      */
-    /*@Test
-    void printCityPopTestEmpty()
+    @Test
+    void printCityTestEmpty()
     {
         ArrayList<City> Cities = new ArrayList<City>();
-        app.printCityPop(Cities);
+        citiesQuery.printCities(Cities);
     }
 
     /**
      * Test to see if app can print a list which includes null value
      */
-    /*@Test
-    void printCityPopTestContainsNulls()
+    @Test
+    void printCityTestContainsNulls()
     {
         ArrayList<City> Cities = new ArrayList<City>();
         Cities.add(null);
-        app.printCityPop(Cities);
+        citiesQuery.printCities(Cities);
     }
 
     /**
      * Test to see if app runs if city array contains all non-null (i.e. normal running)
      */
-    /*@Test
-    void printCityPop()
+    @Test
+    void printCityPopNormal()
     {
         ArrayList<City> Cities = new ArrayList<City>();
         City c = new City();
@@ -62,8 +59,8 @@ public class AppTest
         c.city_district = "Île-de-France";
         c.city_population = 2125246;
         Cities.add(c);
-        app.printCityPop(Cities);
-    }*/
+        citiesQuery.printCities(Cities);
+    }
 
 
 }

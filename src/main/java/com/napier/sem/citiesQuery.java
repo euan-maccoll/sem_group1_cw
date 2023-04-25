@@ -12,7 +12,7 @@ public class citiesQuery {
      *
      * @param Cities The list of cities to print.
      */
-    public static void printCityPop(ArrayList<City> Cities) {
+    public static void printCities(ArrayList<City> Cities) {
         //Check cities is not null
         if (Cities == null) {
             System.out.println("No cities");

@@ -1,7 +1,6 @@
 package com.napier.sem;
 
 import java.sql.*;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 
@@ -135,64 +134,6 @@ public class App
         }
     }
 
-    /**
-     * method to get a single city's details
-     */
-    public City getCity(String city_input)
-    {
-        //add quotation marks for SQL variable
-        city_input = "'" + city_input + "'";
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT city.id, city.name, city.countrycode, city.district, city.population "
-                            + "FROM city "
-                            + "WHERE city.name = " + city_input;
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            if (rset.next())
-            {
-                City c = new City();
-                c.city_id = rset.getInt("city.id");
-                c.city_name = rset.getString("city.name");
-                c.city_country_code = rset.getString("city.countrycode");
-                c.city_district = rset.getString("city.district");
-                c.city_population = rset.getInt("city.population");
-                return c;
-            }
-            else
-                System.out.println("Failed to get city details");
-                return null;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
-            return null;
-        }
-    }
-
-    /**
-     * method to print single city's info
-     */
-    public void displayCity(City c)
-    {
-        if (c != null)
-        {
-            System.out.println(
-                    "City id: " + c.city_id + "\n"
-                            + "City name: " + c.city_name + "\n"
-                            + "City country code: " + c.city_country_code + "\n"
-                            + "City district: " + c.city_district + "\n"
-                            + "City population: " + c.city_population + "\n");
-        }
-    }
-
     public static void countryQueries(int example_limit, String example_continent, String example_region){
         // Extract country population information
         System.out.println("\n" + "All countries in the world and their population (From largest to smallest)");
@@ -230,7 +171,7 @@ public class App
         ArrayList<City> Cities = citiesQuery.getAllCitiesPop(con, example_limit);
 
         // Display all cities and population in the world
-        citiesQuery.printCityPop(Cities);
+        citiesQuery.printCities(Cities);
         // Clearing previous queries results
         Cities.clear();
 
@@ -239,7 +180,7 @@ public class App
         Cities = citiesQuery.getAllCitiesPopContinent(con, example_continent, example_limit);
 
         // Display all cities and population in the selected continent
-        citiesQuery.printCityPop(Cities);
+        citiesQuery.printCities(Cities);
         // Clearing previous queries results
         Cities.clear();
 
@@ -248,7 +189,7 @@ public class App
         Cities = citiesQuery.getAllCitiesPopCountry(con, example_country, example_limit);
 
         // Display all cities and population in the selected continent
-        citiesQuery.printCityPop(Cities);
+        citiesQuery.printCities(Cities);
         // Clearing previous queries results
         Cities.clear();
 
@@ -257,7 +198,7 @@ public class App
         Cities = citiesQuery.getAllCitiesPopRegion(con, example_region, example_limit);
 
         // Display all cities and population in the selected continent
-        citiesQuery.printCityPop(Cities);
+        citiesQuery.printCities(Cities);
         // Clearing previous queries results
         Cities.clear();
 
@@ -266,7 +207,7 @@ public class App
         Cities = citiesQuery.getAllCitiesPopDistrict(con, example_district, example_limit);
 
         // Display all cities and population in the selected district
-        citiesQuery.printCityPop(Cities);
+        citiesQuery.printCities(Cities);
         // Clearing previous queries results
         Cities.clear();
     }
