@@ -14,6 +14,9 @@ public class City {
     //city country code
     public String city_country_code;
 
+    //city country name
+    public String country_name;
+
     //city district
     public String city_district;
 
