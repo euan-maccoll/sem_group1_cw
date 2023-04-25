@@ -222,7 +222,7 @@ public class App
 
         // Extract city population information from a continent
         System.out.println("\n" + "All cities in a continent and their population (From largest to smallest)");
-        Cities = new citiesQuery().getAllCitiesPopContinent(con, example_continent);
+        Cities = citiesQuery.getAllCitiesPopContinent(con, example_continent);
 
         // Display all cities and population in the selected continent
         citiesQuery.printCityPop(Cities);
