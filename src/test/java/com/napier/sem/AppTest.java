@@ -56,6 +56,7 @@ public class AppTest
         c.city_id = 2974;
         c.city_name = "Paris";
         c.city_country_code = "FRA";
+        c.country_name = "France";
         c.city_district = "Île-de-France";
         c.city_population = 2125246;
         Cities.add(c);
