@@ -19,13 +19,13 @@ public class citiesQuery {
             return;
         }
         // Print header
-        System.out.println(String.format("%-30s %-15s", "City Name", "City Population"));
+        System.out.println(String.format("%-30s %-30s %-30s %-30s", "City Name", "Country Name", "District Name", "City Population"));
         // Loop over all cities in the list
         for (City c : Cities) {
             if (c == null)
                 continue;
             String c_string =
-                    String.format("%-30s %-15s", c.city_name, c.city_population);
+                    String.format("%-30s %-30s %-30s %-30s", c.city_name, c.country_name, c.city_district, c.city_population);
             System.out.println(c_string);
         }
     }
@@ -39,8 +39,9 @@ public class citiesQuery {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.id, city.name, city.countrycode, city.district, city.population  "
-                            + "FROM city "
+                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.name "
+                            + "FROM city, country "
+                            + "WHERE country.code = city.countrycode "
                             + "ORDER BY city.population DESC";
             if(limit > 0){
                 strSelect += " LIMIT " + limit;
@@ -56,6 +57,7 @@ public class citiesQuery {
                 c.city_country_code = rset.getString("city.countrycode");
                 c.city_district = rset.getString("city.district");
                 c.city_population = rset.getInt("city.population");
+                c.country_name = rset.getString("country.name");
                 Cities.add(c);
             }
             return Cities;
@@ -77,7 +79,7 @@ public class citiesQuery {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.continent "
+                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.continent, country.name "
                             + "FROM city, country "
                             + "WHERE country.code = city.countrycode AND country.continent = " + continent_input
                             + "ORDER BY city.population DESC";
@@ -95,6 +97,7 @@ public class citiesQuery {
                 c.city_country_code = rset.getString("city.countrycode");
                 c.city_district = rset.getString("city.district");
                 c.city_population = rset.getInt("city.population");
+                c.country_name = rset.getString("country.name");
                 Cities.add(c);
             }
             return Cities;
@@ -134,6 +137,7 @@ public class citiesQuery {
                 c.city_country_code = rset.getString("city.countrycode");
                 c.city_district = rset.getString("city.district");
                 c.city_population = rset.getInt("city.population");
+                c.country_name = rset.getString("country.name");
                 Cities.add(c);
             }
             return Cities;
@@ -155,7 +159,7 @@ public class citiesQuery {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.region "
+                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.region, country.name "
                             + "FROM city, country "
                             + "WHERE country.code = city.countrycode AND country.region = " + input_region
                             + "ORDER BY city.population DESC";
@@ -173,6 +177,7 @@ public class citiesQuery {
                 c.city_country_code = rset.getString("city.countrycode");
                 c.city_district = rset.getString("city.district");
                 c.city_population = rset.getInt("city.population");
+                c.country_name = rset.getString("country.name");
                 Cities.add(c);
             }
             return Cities;
@@ -195,9 +200,9 @@ public class citiesQuery {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.id, city.name, city.countrycode, city.district, city.population "
-                            + "FROM city "
-                            + "WHERE city.district = " + input_district
+                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.name "
+                            + "FROM city, country "
+                            + "WHERE country.code = city.countrycode AND city.district = " + input_district
                             + "ORDER BY city.population DESC";
             if(limit > 0){
                 strSelect += " LIMIT " + limit;
@@ -213,6 +218,7 @@ public class citiesQuery {
                 c.city_country_code = rset.getString("city.countrycode");
                 c.city_district = rset.getString("city.district");
                 c.city_population = rset.getInt("city.population");
+                c.country_name = rset.getString("country.name");
                 Cities.add(c);
             }
             return Cities;

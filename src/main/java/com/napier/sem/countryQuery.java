@@ -13,12 +13,12 @@ public class countryQuery {
     public static void printCountryPop(ArrayList<Country> Countries)
     {
         // Print header
-        System.out.println(String.format("%-30s %-15s", "Country Name", "Country Population"));
+        System.out.println(String.format("%-30s %-30s %-30s %-30s %-30s %-30s", "Country Code", "Country Name", "Continent Name", "Region Name", "Country Population", "Capital ID"));
         // Loop over all countries in the list
         for (Country c : Countries)
         {
             String c_string =
-                    String.format("%-30s %-15s", c.country_name, c.country_population);
+                    String.format("%-30s %-30s %-30s %-30s %-30s %-30s", c.country_id, c.country_name, c.country_continent, c.country_region, c.country_population, c.country_capital);
             System.out.println(c_string);
         }
     }
@@ -34,7 +34,7 @@ public class countryQuery {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.code, country.name, country.population  "
+                    "SELECT country.code, country.name, country.population, country.continent, country.region, country.capital  "
                             + "FROM country "
                             + "ORDER BY country.population DESC";
             if(limit > 0){
@@ -50,6 +50,9 @@ public class countryQuery {
                 c.country_id = rset.getString("country.code");
                 c.country_name = rset.getString("country.name");
                 c.country_population = rset.getInt("country.population");
+                c.country_continent = rset.getString("country.continent");
+                c.country_region = rset.getString("country.region");
+                c.country_capital = rset.getInt("country.capital");
                 Countries.add(c);
             }
             return Countries;
@@ -75,7 +78,7 @@ public class countryQuery {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.code, country.name, country.population  "
+                    "SELECT country.code, country.name, country.population, country.continent, country.region, country.capital  "
                             + "FROM country "
                             + "WHERE country.continent = " + continent_input
                             + "ORDER BY country.population DESC";
@@ -92,6 +95,9 @@ public class countryQuery {
                 c.country_id = rset.getString("country.code");
                 c.country_name = rset.getString("country.name");
                 c.country_population = rset.getInt("country.population");
+                c.country_continent = rset.getString("country.continent");
+                c.country_region = rset.getString("country.region");
+                c.country_capital = rset.getInt("country.capital");
                 Countries.add(c);
             }
             return Countries;
@@ -115,7 +121,7 @@ public class countryQuery {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.code, country.name, country.population  "
+                    "SELECT country.code, country.name, country.population, country.continent, country.region, country.capital  "
                             + "FROM country "
                             + "WHERE country.region = " + input_region
                             + "ORDER BY country.population DESC";
@@ -132,6 +138,9 @@ public class countryQuery {
                 c.country_id = rset.getString("country.code");
                 c.country_name = rset.getString("country.name");
                 c.country_population = rset.getInt("country.population");
+                c.country_continent = rset.getString("country.continent");
+                c.country_region = rset.getString("country.region");
+                c.country_capital = rset.getInt("country.capital");
                 Countries.add(c);
             }
             return Countries;
