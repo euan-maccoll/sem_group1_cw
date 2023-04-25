@@ -13,7 +13,7 @@ public class App
         App a = new App();
 
         if(args.length <1){
-            a.connect("localhost:33060", 30000);
+            a.connect("localhost:33060", 100);
         }else{
             a.connect(args[0], Integer.parseInt(args[1]));
         }
@@ -34,21 +34,24 @@ public class App
         String example_continent = "Africa";
         String example_region = "North America";
         String example_district = "California";
-        int example_limit = 0;
+        int example_limit = 3;
 
 
-        //get City based on user input
-        City c = a.getCity(example_city);
-
-        //print city info
-        a.displayCity(c);
-
-        // Calling all cityQueries
-        cityQueries(example_limit, example_continent, example_region, example_country, example_district);
-
+        /*
         // Calling all countryQueries
+        System.out.println("Calling all country queries");
         countryQueries(example_limit, example_continent, example_region);
 
+        // Calling all cityQueries
+        System.out.println("Calling all city queries");
+        cityQueries(example_limit, example_continent, example_region, example_country, example_district);
+        */
+
+        // Calling all capitalCity Queries
+        System.out.println("Calling all capital city queries");
+        capitalCityQueries(example_limit, example_continent, example_region, example_country, example_district);
+
+        /*
         // Testing Queries with limits
         System.out.println("\n" + "Hardcoding values..." + "\n" + "Limit: 3");
         example_limit = 3;
@@ -57,7 +60,9 @@ public class App
         cityQueries(example_limit, example_continent, example_region, example_country, example_district);
 
         // Calling country queries with limit of 3
+        System.out.println("Calling country queries with limit of 3");
         countryQueries(example_limit, example_continent, example_region);
+        */
 
 
         // Disconnect from database
@@ -264,5 +269,38 @@ public class App
         citiesQuery.printCityPop(Cities);
         // Clearing previous queries results
         Cities.clear();
+    }
+
+    public static void capitalCityQueries(int example_limit, String example_continent, String example_region, String example_country, String example_district){
+
+
+        // All capital cities in the world
+        System.out.println("All capital cities in the world and their population (From largest to smallest)");
+        ArrayList<City> CapitalCities = capitalCitiesQuery.getAllCapitalCitiesPop(con, example_limit);
+
+        // Display all capitals in the world
+        capitalCitiesQuery.printCapitalCityPop(CapitalCities);
+        // Clearing previous query results
+        CapitalCities.clear();
+
+
+        // All capital cities in a continent
+        System.out.println("All capital cities in a specific continent");
+        CapitalCities = capitalCitiesQuery.getCapitalCitiesByContinent(con, example_continent, example_limit);
+
+        // Display all capitals in a continent
+        capitalCitiesQuery.printCapitalCityPop(CapitalCities);
+        // Clearing previous query results
+        CapitalCities.clear();
+
+
+        // All capital cities in a region
+        System.out.println("All capital cities in a specific region");
+        CapitalCities = capitalCitiesQuery.getCapitalCitiesByRegion(con, example_region, example_limit);
+
+        // Display all capitals in a region
+        capitalCitiesQuery.printCapitalCityPop(CapitalCities);
+        // Clearing previous query results
+        CapitalCities.clear();
     }
 }
