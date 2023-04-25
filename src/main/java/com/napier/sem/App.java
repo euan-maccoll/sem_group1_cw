@@ -45,7 +45,8 @@ public class App
         System.out.println("Calling all city queries");
         cityQueries(example_limit, example_continent, example_region, example_country, example_district);
         */
-
+        City aCity = a.getCity(example_city);
+        a.displayCity(aCity);
         // Calling all capitalCity Queries
         System.out.println("Calling all capital city queries");
         capitalCityQueries(example_limit, example_continent, example_region, example_country, example_district);
@@ -125,6 +126,65 @@ public class App
         }
     }
 
+    /**
+     * method to get a single city's details
+     */
+    public City getCity(String city_input)
+    {
+        //add quotation marks for SQL variable
+        city_input = "'" + city_input + "'";
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.id, city.name, city.countrycode, city.district, city.population, country.name "
+                            + "FROM city, country "
+                            + "WHERE country.code = city.countrycode AND city.name = "  + city_input;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                City c = new City();
+                c.city_id = rset.getInt("city.id");
+                c.city_name = rset.getString("city.name");
+                c.city_country_code = rset.getString("city.countrycode");
+                c.city_district = rset.getString("city.district");
+                c.city_population = rset.getInt("city.population");
+                c.country_name = rset.getString("country.name");
+                return c;
+            }
+            else
+                System.out.println("Failed to get city details");
+            return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    /**
+     * method to print single city's info
+     */
+    public void displayCity(City c)
+    {
+        if (c != null)
+        {
+            System.out.println(
+                    "City id: " + c.city_id + "\n"
+                            + "City name: " + c.city_name + "\n"
+                            + "City country code: " + c.city_country_code + "\n"
+                            + "City district: " + c.city_district + "\n"
+                            + "City population: " + c.city_population + "\n"
+                            + "City country: "  + c.country_name);
+        }
+    }
     public static void countryQueries(int example_limit, String example_continent, String example_region){
         // Extract country population information
         System.out.println("\n" + "All countries in the world and their population (From largest to smallest)");
