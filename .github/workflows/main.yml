@@ -84,5 +84,13 @@ jobs:
           automatic_release_tag: "latest"
           files: |
             ./target/*.jar
-    
-      
+        permissions:
+          contents: write
+          issues: write
+          metadata: read
+          pull-requests: write
+          releases: write
+          security-events: write
+
+
+
