@@ -22,6 +22,7 @@ public class App
         new countryQuery();
         new capitalCitiesQuery();
         new languageQuery();
+        new comparisonQuery();
 
 
         //testing app and DB functionality
