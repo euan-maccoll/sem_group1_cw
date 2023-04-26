@@ -5,15 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-public class CityTests
+public class CityTests extends BaseTest
 {
-    static App app;
-
-    @BeforeAll
-    static void init()
-    {
-        app = new App();
-    }
 
     /**
      * Test to see if app can handle if city is null e.g. if query doesn't return a list of cities

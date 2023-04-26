@@ -16,8 +16,12 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Base Tests
+        run: mvn -Dtest=com.napier.sem.BaseTest test
       - name: City Tests
         run: mvn -Dtest=com.napier.sem.CityTests test
+      - name: Country Tests
+        run: mvn -Dtest=com.napier.sem.CountryTests test
 
   IntegrationTests:
     name: Integration Tests
