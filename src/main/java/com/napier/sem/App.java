@@ -21,7 +21,7 @@ public class App
         new citiesQuery();
         new countryQuery();
         new capitalCitiesQuery();
-        new comparisonQuery();
+        new languageQuery();
 
 
         //testing app and DB functionality
@@ -36,6 +36,11 @@ public class App
         String example_district = "California";
         int example_limit = 3;
 
+        System.out.println("Displaying languages:");
+        ArrayList<Language> languages = languageQuery.getLanguages(con);
+        languageQuery.printLanguages(languages);
+
+
 
         /*
         // Calling all countryQueries
@@ -45,14 +50,14 @@ public class App
         // Calling all cityQueries
         System.out.println("Calling all city queries");
         cityQueries(example_limit, example_continent, example_region, example_country, example_district);
-        */
+
         City aCity = a.getCity(example_city);
         a.displayCity(aCity);
         // Calling all capitalCity Queries
         System.out.println("Calling all capital city queries");
         capitalCityQueries(example_limit, example_continent, example_region, example_country, example_district);
 
-        /*
+
         // Testing Queries with limits
         System.out.println("\n" + "Hardcoding values..." + "\n" + "Limit: 3");
         example_limit = 3;

@@ -13,4 +13,7 @@ public class Language {
 
     // percentage of population
     public String percentage;
+
+    //total speakers in the world
+    public String total_speakers;
 }
