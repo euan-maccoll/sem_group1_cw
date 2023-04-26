@@ -65,6 +65,8 @@ public class App
         countryQueries(example_limit, example_continent, example_region);
         */
 
+        // Calling population comparison queries
+        System.out.println("Calling  population comparison queries");
         populationComparisonQueries(example_continent, example_region, example_country);
 
         // Disconnect from database
@@ -307,13 +309,17 @@ public class App
     }
 
     public static void populationComparisonQueries(String example_continent, String example_region, String example_country){
-        ArrayList<Country> Countries = comparisonQuery.getPopCountryComparison(con, example_country);
-        comparisonQuery.printPopCountryComparison(Countries);
 
-        // Clearing previous queries results
-        Countries.clear();
+        //Population comparison for continent (north america)
+        Continent continent = comparisonQuery.getContinentPopulation(con, example_continent);
+        comparisonQuery.printPopContinentComparison(continent);
 
-        Countries = comparisonQuery.getPopRegionComparison(con, example_region);
-        comparisonQuery.printPopRegionComparison(Countries);
+        //Population comparison for region (north america)
+        Region region = comparisonQuery.getRegionPopulation(con, example_region);
+        comparisonQuery.printPopRegionComparison(region);
+
+        //Population comparison for country
+        Country country = comparisonQuery.getPopCountryComparison(con, example_country);
+        comparisonQuery.printPopCountryComparison(country);
     }
 }
