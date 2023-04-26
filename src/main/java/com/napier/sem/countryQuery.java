@@ -22,6 +22,8 @@ public class countryQuery {
         // Loop over all countries in the list
         for (Country c : Countries)
         {
+            if (c == null)
+                continue;
             String c_string =
                     String.format("%-30s %-30s %-30s %-30s %-30s %-30s", c.country_id, c.country_name, c.country_continent, c.country_region, c.country_population, c.country_capital);
             System.out.println(c_string);
