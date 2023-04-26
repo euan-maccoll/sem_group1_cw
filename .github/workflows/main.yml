@@ -1,9 +1,6 @@
 name: Coursework workflow
 on:
   push:
-    branches:
-      - master
-      - '*'
 
 jobs:
   UnitTests:
