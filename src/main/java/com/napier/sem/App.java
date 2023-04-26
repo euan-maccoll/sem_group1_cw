@@ -202,7 +202,7 @@ public class App
         ArrayList<Country> Countries = countryQuery.getAllCountriesPop(con, example_limit);
 
         // Display all countries and population in the world
-        countryQuery.printCountryPop(Countries);
+        countryQuery.printCountries(Countries);
         // Clearing previous queries results
         Countries.clear();
 
@@ -212,7 +212,7 @@ public class App
         Countries = countryQuery.getAllCountriesPopContinent(con, example_continent, example_limit);
 
         // Display all cities and population in the selected continent
-        countryQuery.printCountryPop(Countries);
+        countryQuery.printCountries(Countries);
         // Clearing previous queries results
         Countries.clear();
 
@@ -222,7 +222,7 @@ public class App
         Countries = countryQuery.getAllCountriesPopRegion(con, example_region, example_limit);
 
         // Display all cities and population in the selected region
-        countryQuery.printCountryPop(Countries);
+        countryQuery.printCountries(Countries);
         // Clearing previous queries results
         Countries.clear();
     }

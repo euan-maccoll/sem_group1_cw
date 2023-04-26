@@ -10,8 +10,13 @@ public class countryQuery {
      * Prints a list of countries and their populations.
      * @param Countries The list of countries to print.
      */
-    public static void printCountryPop(ArrayList<Country> Countries)
+    public static void printCountries(ArrayList<Country> Countries)
     {
+        //Check cities is not null
+        if (Countries == null) {
+            System.out.println("No countries");
+            return;
+        }
         // Print header
         System.out.println(String.format("%-30s %-30s %-30s %-30s %-30s %-30s", "Country Code", "Country Name", "Continent Name", "Region Name", "Country Population", "Capital ID"));
         // Loop over all countries in the list

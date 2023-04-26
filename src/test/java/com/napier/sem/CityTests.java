@@ -12,7 +12,7 @@ public class CityTests extends BaseTest
      * Test to see if app can handle if city is null e.g. if query doesn't return a list of cities
      */
     @Test
-    void printCityPopTestNull()
+    void printCityTestNull()
     {
         citiesQuery.printCities(null);
     }
