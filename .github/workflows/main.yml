@@ -19,10 +19,12 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: City Tests
-        run: mvn -Dtest=com.napier.sem.CityTests test
       - name: Country Tests
         run: mvn -Dtest=com.napier.sem.CountryTests test
+      - name: City Tests
+        run: mvn -Dtest=com.napier.sem.CityTests test
+      - name: Capital Tests
+        run: mvn -Dtest=com.napier.sem.CapitalCityTests test
       - name: CodeCov
         uses: codecov/codecov-action@v3
         with:
