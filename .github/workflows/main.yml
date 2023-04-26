@@ -20,7 +20,7 @@ jobs:
         run: mvn -Dtest=com.napier.sem.CountryTests test
       - name: City Tests
         run: mvn -Dtest=com.napier.sem.CityTests test
-      - name: Capital Tests
+      - name: Capital City Tests
         run: mvn -Dtest=com.napier.sem.CapitalCityTests test
       - name: CodeCov
         uses: codecov/codecov-action@v3
