@@ -6,9 +6,10 @@ import java.sql.Statement;
 
 public class comparisonQuery {
     public static void printPopCountryComparison(Country country) {
-        // Check country is not null
-        if (country == null) {
-            System.out.println("No country");
+        // Check if country is null or any field is null
+        if (country == null || country.country_name == null || country.country_population == 0 ||
+                country.city_population == 0 || country.non_city_population == 0) {
+            System.out.println("Unable to print country comparison as there is no information provided");
             return;
         }
 
@@ -34,9 +35,10 @@ public class comparisonQuery {
 
 
     public static void printPopRegionComparison(Region region) {
-        // Check region is not null
-        if (region == null) {
-            System.out.println("No region");
+        // Check if region is null or any field is null
+        if (region == null || region.region_name == null || region.region_population == 0 ||
+                region.region_city_population == 0 || region.region_non_city_population == 0) {
+            System.out.println("Unable to print region comparison as there is no information provided");
             return;
         }
 
@@ -58,9 +60,10 @@ public class comparisonQuery {
     }
 
     public static void printPopContinentComparison(Continent continent) {
-        // Check continent is not null
-        if (continent == null) {
-            System.out.println("No continent");
+        // Check if continent is null
+        if (continent == null || continent.continent_name == null || continent.continent_population == null ||
+                continent.continent_city_population == null || continent.continent_non_city_population == null) {
+            System.out.println("Unable to print continent comparison as there is no information provided");
             return;
         }
 
@@ -136,8 +139,9 @@ public class comparisonQuery {
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract region information
-            Region region = new Region();
+            Region region = null;
             while (rset.next()) {
+                region = new Region();
                 region.region_name = rset.getString("region");
                 region.region_population = rset.getInt("RegionPop");
                 region.region_city_population = rset.getInt("CityPop");
@@ -166,8 +170,9 @@ public class comparisonQuery {
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract continent information
-            Continent continent = new Continent();
-            while (rset.next()) {
+            Continent continent = null;
+            if (rset.next()) {
+                continent = new Continent();
                 continent.continent_name = rset.getString("continent");
                 continent.continent_population = rset.getLong("ContinentPop");
                 continent.continent_city_population = rset.getLong("CityPop");
@@ -180,5 +185,6 @@ public class comparisonQuery {
             return null;
         }
     }
+
 
 }

@@ -320,7 +320,7 @@ public class App
     public static void populationComparisonQueries(String example_continent, String example_region, String example_country){
 
         //Population comparison for continent (north america)
-        Continent continent = comparisonQuery.getContinentPopulation(con, example_continent);
+        Continent continent = comparisonQuery.getContinentPopulation(con, "Asia");
         comparisonQuery.printPopContinentComparison(continent);
 
         //Population comparison for region (north america)
