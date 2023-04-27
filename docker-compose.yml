@@ -11,3 +11,11 @@ services:
     restart: always
     ports:
       - "33060:3306"
+
+  # testing db is testing db folder
+  testing_db:
+    build: db_testing_db/.
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "33061:3306"
