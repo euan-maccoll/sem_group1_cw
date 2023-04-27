@@ -100,7 +100,11 @@ public class App
                 con = DriverManager.getConnection("jdbc:mysql://" + location
                                 + "/world?allowPublicKeyRetrieval=true&useSSL=false",
                         "root", "example");
+
+                // Get the current database name
                 System.out.println("Successfully connected");
+                String dbName = con.getCatalog();
+                System.out.println("Connected to database: " + dbName);
                 break;
             } catch (SQLException sqle) {
                 System.out.println("Failed to connect to database attempt " +                                  Integer.toString(i));
@@ -314,7 +318,7 @@ public class App
         comparisonQuery.printPopContinentComparison(continent);
 
         //Population comparison for region (north america)
-        Region region = comparisonQuery.getRegionPopulation(con, example_region);
+        Region region = comparisonQuery.getPopRegionComparison(con, example_region);
         comparisonQuery.printPopRegionComparison(region);
 
         //Population comparison for country

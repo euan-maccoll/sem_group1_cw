@@ -1,3 +1,7 @@
 [submodule "db/test_db"]
 	path = db/test_db
 	url = https://github.com/jules946/sem-cw-db
+
+[submodule "db_testing_db/test_db"]
+	path = db_testing_db/test_db
+	url = https://github.com/jules946/sem_cw_testing_db
