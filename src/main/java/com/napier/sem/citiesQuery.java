@@ -34,6 +34,10 @@ public class citiesQuery {
      * method to get all cities populations in the world (largest to smallest)
      */
     public static ArrayList<City> getAllCitiesPop(Connection con, int limit) {
+        if (limit < 0) {
+            System.err.println("Invalid limit parameter: " + limit);
+            return null;
+        }
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -72,6 +76,10 @@ public class citiesQuery {
      * method to get all cities populations in a continent (largest to smallest)
      */
     public static ArrayList<City> getAllCitiesPopContinent(Connection con, String continent_input, int limit) {
+        if (limit < 0) {
+            System.err.println("Invalid limit parameter: " + limit);
+            return null;
+        }
         //add quotation marks for SQL variable
         continent_input = "'" + continent_input + "'";
         try {
@@ -112,6 +120,10 @@ public class citiesQuery {
      * method to get all cities populations in a country (largest to smallest)
      */
     public static ArrayList<City> getAllCitiesPopCountry(Connection con, String country_input, int limit) {
+        if (limit < 0) {
+            System.err.println("Invalid limit parameter: " + limit);
+            return null;
+        }
         //add quotation marks for SQL variable
         country_input = "'" + country_input + "'";
         try {
@@ -152,6 +164,10 @@ public class citiesQuery {
      * method to get all cities populations in a region (largest to smallest)
      */
     public static ArrayList<City> getAllCitiesPopRegion(Connection con, String input_region, int limit) {
+        if (limit < 0) {
+            System.err.println("Invalid limit parameter: " + limit);
+            return null;
+        }
         //add quotation marks for SQL variable
         input_region = "'" + input_region + "'";
         try {
@@ -193,6 +209,10 @@ public class citiesQuery {
      */
 
     public static ArrayList<City> getAllCitiesPopDistrict(Connection con, String input_district, int limit) {
+        if (limit < 0) {
+            System.err.println("Invalid limit parameter: " + limit);
+            return null;
+        }
         //add quotation marks for SQL variable
         input_district = "'" + input_district + "'";
         try {
