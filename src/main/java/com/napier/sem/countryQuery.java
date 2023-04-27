@@ -35,6 +35,11 @@ public class countryQuery {
      */
     public static ArrayList<Country> getAllCountriesPop(Connection con, int limit)
     {
+        //check for negative limit
+        if (limit < 0) {
+            System.err.println("Invalid limit parameter: " + limit);
+            return null;
+        }
         try
         {
             // Create an SQL statement
@@ -77,6 +82,12 @@ public class countryQuery {
      */
     public static ArrayList<Country> getAllCountriesPopContinent(Connection con, String continent_input, int limit)
     {
+        //check for negative limit
+        if (limit < 0) {
+            System.err.println("Invalid limit parameter: " + limit);
+            return null;
+        }
+
         //add quotation marks for SQL variable
         continent_input = "'" + continent_input + "'";
         try
@@ -120,6 +131,11 @@ public class countryQuery {
 
     public static ArrayList<Country> getAllCountriesPopRegion(Connection con, String input_region, int limit)
     {
+        //check for negative limit
+        if (limit < 0) {
+            System.err.println("Invalid limit parameter: " + limit);
+            return null;
+        }
         //add quotation marks for SQL variable
         input_region = "'" + input_region + "'";
         try

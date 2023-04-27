@@ -8,12 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CityTests extends BaseTest
 {
 
-    /**
+    /*
      * ==============================================================
      * PRINT METHOD TESTS
      * ==============================================================
      */
-
 
     /**
      * Test to see if app can handle if city is null e.g. if query doesn't return a list of cities
@@ -64,21 +63,37 @@ public class CityTests extends BaseTest
     }
 
 
-    /**
+    /*
      * ==============================================================
      * GET ALL CITIES IN THE WORLD METHOD TESTS
      * ==============================================================
      */
 
     /**
-     * Test to ensure that getAllCitiesPop() method returns the correct number of cities when a valid limit is provided.
-     * This test checks if the application runs normally when the city array contains all non-null elements.
+     * Tests if the getAllCitiesPop() method retrieves a non-empty list of cities with a valid limit parameter.
+     * Also checks if the list size is equal or less than the specified limit and that the cities
+     * sorted in descending order of population.
      */
     @Test
-    void testGetAllCitiesPopWithValidLimit() {
-        ArrayList<City> test_cities = citiesQuery.getAllCitiesPop(con, 10);
-        assertNotNull(test_cities);
-        assertEquals(10, test_cities.size());
+    void testGetAllCitiesPopWithValidContinentAndLimit() {
+        // Ensure that the list of cities returned is not null
+        ArrayList<City> cities = citiesQuery.getAllCitiesPop(con, 10);
+        assertNotNull(cities);
+
+        // Ensure that the list of cities returned is not empty
+        assertFalse(cities.isEmpty());
+
+        // Ensure that the list of cities returned does not exceed the specified limit
+        assertTrue(cities.size() <= 10);
+
+        // Ensure that the list of cities returned is sorted in descending order by population
+        City prevCity = null;
+        for (City city : cities) {
+            if (prevCity != null) {
+                assertTrue(prevCity.city_population >= city.city_population);
+            }
+            prevCity = city;
+        }
     }
 
     /**
@@ -101,7 +116,7 @@ public class CityTests extends BaseTest
         assertNull(cities3);
     }
 
-    /**
+    /*
      * ==============================================================
      * GET ALL CITIES IN A CONTINENT METHOD TESTS
      * ==============================================================
@@ -168,7 +183,7 @@ public class CityTests extends BaseTest
         assertTrue(cities.isEmpty());
     }
 
-    /**
+    /*
      * ==============================================================
      * GET ALL CITIES IN A COUNTRY METHOD TESTS
      * ==============================================================
@@ -236,7 +251,7 @@ public class CityTests extends BaseTest
     }
 
 
-    /**
+    /*
      * ==============================================================
      * GET ALL CITIES IN A REGION METHOD TESTS
      * ==============================================================
@@ -301,7 +316,7 @@ public class CityTests extends BaseTest
         assertTrue(cities.isEmpty());
     }
 
-    /**
+    /*
      * ==============================================================
      * GET ALL CITIES IN A DISTRICT METHOD TESTS
      * ==============================================================
