@@ -23,6 +23,7 @@ public class App
         new capitalCitiesQuery();
         new languageQuery();
         new comparisonQuery();
+        new populationQuery();
 
 
         //testing app and DB functionality
@@ -37,9 +38,7 @@ public class App
         String example_district = "California";
         int example_limit = 3;
 
-        System.out.println("Displaying languages:");
-        ArrayList<Language> languages = languageQuery.getLanguages(con);
-        languageQuery.printLanguages(languages);
+
 
 
 
@@ -52,8 +51,7 @@ public class App
         System.out.println("Calling all city queries");
         cityQueries(example_limit, example_continent, example_region, example_country, example_district);
 
-        City aCity = a.getCity(example_city);
-        a.displayCity(aCity);
+
         // Calling all capitalCity Queries
         System.out.println("Calling all capital city queries");
         capitalCityQueries(example_limit, example_continent, example_region, example_country, example_district);
@@ -69,11 +67,21 @@ public class App
         // Calling country queries with limit of 3
         System.out.println("Calling country queries with limit of 3");
         countryQueries(example_limit, example_continent, example_region);
-        */
+
 
         // Calling population comparison queries
         System.out.println("Calling  population comparison queries");
         populationComparisonQueries(example_continent, example_region, example_country);
+
+        // Calling all language queries
+        System.out.println("Calling all language queries:");
+        ArrayList<Language> languages = languageQuery.getLanguages(con);
+        languageQuery.printLanguages(languages);
+        */
+
+        // Calling general population queries
+        generalPopulationQueries(example_continent, example_region, example_country,example_district, example_city);
+
 
         // Disconnect from database
         a.disconnect();
@@ -285,8 +293,6 @@ public class App
     }
 
     public static void capitalCityQueries(int example_limit, String example_continent, String example_region, String example_country, String example_district){
-
-
         // All capital cities in the world
         System.out.println("All capital cities in the world and their population (From largest to smallest)");
         ArrayList<City> CapitalCities = capitalCitiesQuery.getAllCapitalCitiesPop(con, example_limit);
@@ -331,4 +337,25 @@ public class App
         Country country = comparisonQuery.getPopCountryComparison(con, example_country);
         comparisonQuery.printPopCountryComparison(country);
     }
+
+    public static void generalPopulationQueries(String example_continent, String example_region, String example_country, String example_district, String example_city) {
+        //Population of world
+        populationQuery.printWorldPopulation(con);
+
+        //Population of a continent
+        populationQuery.printContinentPopulation(con, example_continent);
+
+        //Population of a region
+        populationQuery.printRegionPopulation(con, example_region);
+
+        //Population of a country
+        populationQuery.printCountryPopulation(con, example_country);
+
+        //Population of a district
+        populationQuery.printDistrictPopulation(con, example_district);
+
+        //Population of a city
+        populationQuery.printCityPopulation(con, example_city);
+    }
+
 }
