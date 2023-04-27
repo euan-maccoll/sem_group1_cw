@@ -36,13 +36,9 @@ public class App
         String example_continent = "Africa";
         String example_region = "North America";
         String example_district = "California";
-        int example_limit = 3;
+        int example_limit = 0;
 
 
-
-
-
-        /*
         // Calling all countryQueries
         System.out.println("Calling all country queries");
         countryQueries(example_limit, example_continent, example_region);
@@ -68,6 +64,9 @@ public class App
         System.out.println("Calling country queries with limit of 3");
         countryQueries(example_limit, example_continent, example_region);
 
+        // Calling capital cities queries with limit of 3
+        System.out.println("Calling all capital city queries with limit of 3");
+        capitalCityQueries(example_limit, example_continent, example_region, example_country, example_district);
 
         // Calling population comparison queries
         System.out.println("Calling  population comparison queries");
@@ -77,7 +76,7 @@ public class App
         System.out.println("Calling all language queries:");
         ArrayList<Language> languages = languageQuery.getLanguages(con);
         languageQuery.printLanguages(languages);
-        */
+
 
         // Calling general population queries
         generalPopulationQueries(example_continent, example_region, example_country,example_district, example_city);
