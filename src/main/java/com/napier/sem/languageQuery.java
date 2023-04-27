@@ -8,7 +8,12 @@ import java.util.ArrayList;
 public class languageQuery {
 
     public static void printLanguages(ArrayList<Language> languages)
-    {
+
+    {   //Check language is not null
+        if (languages == null) {
+            System.out.println("No languages");
+            return;
+        }
         // Print header
         System.out.println(String.format("%-30s %-30s %-30s ", "Language", "Population", "Percentage"));
         // Loop over all countries in the list

@@ -29,6 +29,9 @@ jobs:
         run: mvn -Dtest=com.napier.sem.CapitalCityTests test
       - name: Comparison Tests
         run: mvn -Dtest=com.napier.sem.ComparisonTests test
+      - name: Language Tests
+        run: mvn -Dtest=com.napier.sem.LanguageTests test
+
       - name: Stop Test Database
         run: |
           docker stop testing_world
