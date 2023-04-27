@@ -29,13 +29,16 @@ public class capitalCitiesQuery {
         }
     }
 
-    /**
-     * method to get all capital city populations in the world (largest to smallest)
-     */
+
     /**
      * method to get all capital city populations in the world (largest to smallest)
      */
     public static ArrayList<City> getAllCapitalCitiesPop(Connection con, int limit) {
+        //check if limit is not negative
+        if (limit < 0) {
+            System.err.println("Invalid limit parameter: " + limit);
+            return null;
+        }
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -72,7 +75,11 @@ public class capitalCitiesQuery {
     }
 
     public static ArrayList<City> getCapitalCitiesByContinent(Connection con, String continent_input, int limit) {
-
+        //check if limit is not negative
+        if (limit < 0) {
+            System.err.println("Invalid limit parameter: " + limit);
+            return null;
+        }
         //add quotation marks for SQL variable
         continent_input = "'" + continent_input + "'";
         try {
@@ -112,7 +119,11 @@ public class capitalCitiesQuery {
     }
 
     public static ArrayList<City> getCapitalCitiesByRegion(Connection con, String region_input, int limit) {
-
+        //check if limit is not negative
+        if (limit < 0) {
+            System.err.println("Invalid limit parameter: " + limit);
+            return null;
+        }
         //add quotation marks for SQL variable
         region_input = "'" + region_input + "'";
         try {
