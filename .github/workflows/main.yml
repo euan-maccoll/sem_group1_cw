@@ -27,7 +27,7 @@ jobs:
         run: mvn -Dtest=com.napier.sem.CityTests test
       - name: Capital City Tests
         run: mvn -Dtest=com.napier.sem.CapitalCityTests test
-      - name: Comparison City Tests
+      - name: Comparison Tests
         run: mvn -Dtest=com.napier.sem.ComparisonTests test
       - name: Stop Test Database
         run: |
