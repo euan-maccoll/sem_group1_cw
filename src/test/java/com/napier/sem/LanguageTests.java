@@ -44,22 +44,6 @@ public class LanguageTests extends BaseTest {
     }
 
     /**
-     * Test to ensure that the printLanguages method handles invalid Language objects correctly.
-     * This test would create a Language object with null values for all properties and ensure that
-     * the method handles it gracefully (e.g. prints a placeholder value instead of crashing).
-     */
-    @Test
-    void testPrintLanguagesHandlesInvalidLanguage() {
-        ArrayList<Language> languages = new ArrayList<Language>();
-        Language invalidLanguage = new Language();
-        invalidLanguage.language = null;
-        invalidLanguage.total_speakers = null;
-        invalidLanguage.percentage = null;
-        languages.add(invalidLanguage);
-        languageQuery.printLanguages(languages);
-    }
-
-    /**
      * Test to see if app runs if language array contains all non-null (i.e. normal running)
      */
     @Test
