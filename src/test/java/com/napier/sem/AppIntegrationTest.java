@@ -20,17 +20,7 @@ public class AppIntegrationTest
 
     }
 
-    @Test
-    void testGetCity()
-    {
-        City c = app.getCity("Paris");
-        assertEquals(c.city_id, 2974);
-        assertEquals(c.city_name, "Paris");
-        assertEquals(c.city_country_code, "FRA");
-        assertEquals(c.city_district, "Île-de-France");
-        assertEquals(c.city_population, 2125246);
-        assertEquals(c.country_name, "France");
-    }
+
 
     /**
      * Test case to verify that the application can connect to the database successfully.

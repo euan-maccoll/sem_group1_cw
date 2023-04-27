@@ -16,12 +16,22 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Setup Test Database
+        run: |
+          docker build -t database ./db_testing_db
+          docker run --name testing_world -dp 33061:3306 database
+
       - name: Country Tests
         run: mvn -Dtest=com.napier.sem.CountryTests test
       - name: City Tests
         run: mvn -Dtest=com.napier.sem.CityTests test
       - name: Capital City Tests
         run: mvn -Dtest=com.napier.sem.CapitalCityTests test
+      - name: Stop Test Database
+        run: |
+          docker stop testing_world
+          docker rm testing_world
+          docker image rm database
       - name: CodeCov
         uses: codecov/codecov-action@v3
         with:

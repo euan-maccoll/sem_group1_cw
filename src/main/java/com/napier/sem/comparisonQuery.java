@@ -3,8 +3,6 @@ package com.napier.sem;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class comparisonQuery {
     public static void printPopCountryComparison(Country country) {
@@ -95,7 +93,7 @@ public class comparisonQuery {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.code, country.name, country.population, country.continent, country.region, country.capital, SUM(city.population) AS SumCityPop  "
+                    "SELECT country.code, country.name, country.population, country.continent, country.region, country.capital, SUM(DISTINCT city.population) AS SumCityPop  "
                             + "FROM country, city "
                             + "WHERE country.code = city.countrycode AND country.name = " + country_input
                             + "GROUP BY country.code";
@@ -124,7 +122,7 @@ public class comparisonQuery {
     }
 
 
-    public static Region getRegionPopulation(Connection con, String regionName) {
+    public static Region getPopRegionComparison(Connection con, String regionName) {
         regionName = "'" + regionName + "'";
         try {
             // Create an SQL statement
@@ -134,13 +132,13 @@ public class comparisonQuery {
                     "SELECT SUM(DISTINCT country.population) AS RegionPop, SUM(DISTINCT city.population) AS CityPop, country.region "
                             + "FROM country INNER JOIN city ON country.code = city.countrycode "
                             + "WHERE country.region = " + regionName + " "
-                            + "GROUP by region";
+                            + "GROUP BY country.region";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract region information
             Region region = new Region();
             while (rset.next()) {
-                region.region_name = rset.getString("country.region");
+                region.region_name = rset.getString("region");
                 region.region_population = rset.getInt("RegionPop");
                 region.region_city_population = rset.getInt("CityPop");
                 region.region_non_city_population = region.region_population - region.region_city_population;
@@ -152,6 +150,7 @@ public class comparisonQuery {
             return null;
         }
     }
+
 
     public static Continent getContinentPopulation(Connection con, String continentName) {
         continentName = "'" + continentName + "'";
@@ -170,8 +169,8 @@ public class comparisonQuery {
             Continent continent = new Continent();
             while (rset.next()) {
                 continent.continent_name = rset.getString("continent");
-                continent.continent_population = rset.getInt("ContinentPop");
-                continent.continent_city_population = rset.getInt("CityPop");
+                continent.continent_population = rset.getLong("ContinentPop");
+                continent.continent_city_population = rset.getLong("CityPop");
                 continent.continent_non_city_population = continent.continent_population - continent.continent_city_population;
             }
             return continent;

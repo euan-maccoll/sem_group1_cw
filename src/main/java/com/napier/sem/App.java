@@ -21,6 +21,7 @@ public class App
         new citiesQuery();
         new countryQuery();
         new capitalCitiesQuery();
+        new languageQuery();
         new comparisonQuery();
 
 
@@ -36,6 +37,11 @@ public class App
         String example_district = "California";
         int example_limit = 3;
 
+        System.out.println("Displaying languages:");
+        ArrayList<Language> languages = languageQuery.getLanguages(con);
+        languageQuery.printLanguages(languages);
+
+
 
         /*
         // Calling all countryQueries
@@ -45,14 +51,14 @@ public class App
         // Calling all cityQueries
         System.out.println("Calling all city queries");
         cityQueries(example_limit, example_continent, example_region, example_country, example_district);
-        */
+
         City aCity = a.getCity(example_city);
         a.displayCity(aCity);
         // Calling all capitalCity Queries
         System.out.println("Calling all capital city queries");
         capitalCityQueries(example_limit, example_continent, example_region, example_country, example_district);
 
-        /*
+
         // Testing Queries with limits
         System.out.println("\n" + "Hardcoding values..." + "\n" + "Limit: 3");
         example_limit = 3;
@@ -100,7 +106,11 @@ public class App
                 con = DriverManager.getConnection("jdbc:mysql://" + location
                                 + "/world?allowPublicKeyRetrieval=true&useSSL=false",
                         "root", "example");
+
+                // Get the current database name
                 System.out.println("Successfully connected");
+                String dbName = con.getCatalog();
+                System.out.println("Connected to database: " + dbName);
                 break;
             } catch (SQLException sqle) {
                 System.out.println("Failed to connect to database attempt " +                                  Integer.toString(i));
@@ -314,7 +324,7 @@ public class App
         comparisonQuery.printPopContinentComparison(continent);
 
         //Population comparison for region (north america)
-        Region region = comparisonQuery.getRegionPopulation(con, example_region);
+        Region region = comparisonQuery.getPopRegionComparison(con, example_region);
         comparisonQuery.printPopRegionComparison(region);
 
         //Population comparison for country
