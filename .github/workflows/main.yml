@@ -31,6 +31,8 @@ jobs:
         run: mvn -Dtest=com.napier.sem.ComparisonTests test
       - name: Language Tests
         run: mvn -Dtest=com.napier.sem.LanguageTests test
+      - name: General Population Tests
+        run: mvn -Dtest=com.napier.sem.PopulationTests test
 
       - name: Stop Test Database
         run: |

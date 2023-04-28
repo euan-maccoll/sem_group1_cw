@@ -67,7 +67,8 @@ public class populationQuery {
             String strSelect = "SELECT SUM(population) as total_population FROM country WHERE continent = '" + continentName + "'";
             ResultSet rset = stmt.executeQuery(strSelect);
             if (rset.next()) {
-                return rset.getLong("total_population");
+                long totalPopulation = rset.getLong("total_population");
+                return totalPopulation != 0 ? totalPopulation : -1;
             } else {
                 return -1;
             }
@@ -78,13 +79,15 @@ public class populationQuery {
         }
     }
 
+
     public static long getRegionPopulation(Connection con, String regionName) {
         try {
             Statement stmt = con.createStatement();
             String strSelect = "SELECT SUM(population) as total_population FROM country WHERE region = '" + regionName + "'";
             ResultSet rset = stmt.executeQuery(strSelect);
             if (rset.next()) {
-                return rset.getLong("total_population");
+                long totalPopulation = rset.getLong("total_population");
+                return totalPopulation != 0 ? totalPopulation : -1;
             } else {
                 return -1;
             }
@@ -95,13 +98,14 @@ public class populationQuery {
         }
     }
 
-    public static long getCountryPopulation(Connection con, String countryCode) {
+    public static long getCountryPopulation(Connection con, String countryName) {
         try {
             Statement stmt = con.createStatement();
-            String strSelect = "SELECT population FROM country WHERE code = '" + countryCode + "'";
+            String strSelect = "SELECT population FROM country WHERE Name = '" + countryName + "'";
             ResultSet rset = stmt.executeQuery(strSelect);
             if (rset.next()) {
-                return rset.getLong("population");
+                long population = rset.getLong("population");
+                return population != 0 ? population : -1;
             } else {
                 return -1;
             }
@@ -112,13 +116,15 @@ public class populationQuery {
         }
     }
 
+
     public static long getDistrictPopulation(Connection con, String districtName) {
         try {
             Statement stmt = con.createStatement();
             String strSelect = "SELECT SUM(population) as total_population FROM city WHERE district = '" + districtName + "'";
             ResultSet rset = stmt.executeQuery(strSelect);
             if (rset.next()) {
-                return rset.getLong("total_population");
+                long totalPopulation = rset.getLong("total_population");
+                return totalPopulation != 0 ? totalPopulation : -1;
             } else {
                 return -1;
             }
@@ -135,7 +141,8 @@ public class populationQuery {
             String strSelect = "SELECT population FROM city WHERE name = '" + cityName + "'";
             ResultSet rset = stmt.executeQuery(strSelect);
             if (rset.next()) {
-                return rset.getLong("population");
+                long population = rset.getLong("population");
+                return population != 0 ? population : -1;
             } else {
                 return -1;
             }
