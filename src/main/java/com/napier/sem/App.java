@@ -213,6 +213,13 @@ public class App
                             + "City country: "  + c.country_name);
         }
     }
+
+    /**
+     * This method executes country-related queries.
+     * @param example_limit The limit for the number of countries to display
+     * @param example_continent The continent for which to display countries
+     * @param example_region The region for which to display countries
+     */
     public static void countryQueries(int example_limit, String example_continent, String example_region){
         // Extract country population information
         System.out.println("\n" + "All countries in the world and their population (From largest to smallest)");
@@ -244,6 +251,14 @@ public class App
         Countries.clear();
     }
 
+    /**
+     * This method executes city-related queries.
+     * @param example_limit The limit for the number of countries to display
+     * @param example_continent The continent for which to display countries
+     * @param example_region The region for which to display countries
+     * @param example_country The country for which to display cities
+     * @param example_district The district for which to display cities
+     */
     public static void cityQueries(int example_limit, String example_continent, String example_region, String example_country, String example_district){
         // Extract city population information
         System.out.println("\n" + "All cities in the world and their population (From largest to smallest)");
@@ -291,6 +306,14 @@ public class App
         Cities.clear();
     }
 
+    /**
+     * This method executes capital city-related queries.
+     * @param example_limit The limit for the number of capital cities to display
+     * @param example_continent The continent for which to display capital cities
+     * @param example_region The region for which to display capital cities
+     * @param example_country The country for which to display capital city
+     * @param example_district The district for which to display capital cities
+     */
     public static void capitalCityQueries(int example_limit, String example_continent, String example_region, String example_country, String example_district){
         // All capital cities in the world
         System.out.println("All capital cities in the world and their population (From largest to smallest)");
@@ -322,6 +345,12 @@ public class App
         CapitalCities.clear();
     }
 
+    /**
+     * This method executes population comparison queries.
+     * @param example_continent The continent for which to compare population
+     * @param example_region The region for which to compare population
+     * @param example_country The country for which to compare population
+     */
     public static void populationComparisonQueries(String example_continent, String example_region, String example_country){
 
         //Population comparison for continent (north america)
@@ -337,6 +366,14 @@ public class App
         comparisonQuery.printPopCountryComparison(country);
     }
 
+    /**
+     * This method executes general population-related queries.
+     * @param example_continent The continent for which to display population information
+     * @param example_region The region for which to display population information
+     * @param example_country The country for which to display population information
+     * @param example_district The district for which to display population information
+     * @param example_city The city for which to display population information
+     */
     public static void generalPopulationQueries(String example_continent, String example_region, String example_country, String example_district, String example_city) {
         //Population of world
         populationQuery.printWorldPopulation(con);

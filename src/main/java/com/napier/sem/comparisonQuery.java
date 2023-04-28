@@ -5,6 +5,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class comparisonQuery {
+
+    /**
+     * This method prints the population comparison between cities and non-cities in a given country.
+     * @param country The Country object to compare populations for
+     */
     public static void printPopCountryComparison(Country country) {
         // Check if country is null or any field is null
         if (country == null || country.country_name == null || country.country_population == 0 ||
@@ -33,7 +38,10 @@ public class comparisonQuery {
 
 
 
-
+    /**
+     * This method prints the population comparison between cities and non-cities in a given region.
+     * @param region The Region object to compare populations for
+     */
     public static void printPopRegionComparison(Region region) {
         // Check if region is null or any field is null
         if (region == null || region.region_name == null || region.region_population == 0 ||
@@ -59,6 +67,10 @@ public class comparisonQuery {
         System.out.println(r_string);
     }
 
+    /**
+     * This method prints the population comparison between cities and non-cities in a given continent.
+     * @param continent The Continent object to compare populations for
+     */
     public static void printPopContinentComparison(Continent continent) {
         // Check if continent is null
         if (continent == null || continent.continent_name == null || continent.continent_population == null ||
@@ -87,7 +99,10 @@ public class comparisonQuery {
 
 
     /**
-     * method to get compare the population between city and non-city in a country
+     * This method retrieves the population comparison between cities and non-cities in a given country.
+     * @param con The Connection object for the database
+     * @param country_input The name of the country to get population information for
+     * @return A Country object containing the population information for the given country
      */
     public static Country getPopCountryComparison(Connection con, String country_input) {
         country_input = "'" + country_input + "'";
@@ -124,7 +139,12 @@ public class comparisonQuery {
         }
     }
 
-
+    /**
+     * This method retrieves the population comparison between cities and non-cities in a given region.
+     * @param con The Connection object for the database
+     * @param regionName The name of the region to get population information for
+     * @return A Region object containing the population information for the given region
+     */
     public static Region getPopRegionComparison(Connection con, String regionName) {
         regionName = "'" + regionName + "'";
         try {
@@ -155,7 +175,12 @@ public class comparisonQuery {
         }
     }
 
-
+    /**
+     * This method retrieves the population comparison between cities and non-cities in a given continent.
+     * @param con The Connection object for the database
+     * @param continentName The name of the continent to get population information for
+     * @return A Continent object containing the population information for the given continent
+     */
     public static Continent getContinentPopulation(Connection con, String continentName) {
         continentName = "'" + continentName + "'";
         try {

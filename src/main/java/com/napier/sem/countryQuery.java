@@ -32,6 +32,9 @@ public class countryQuery {
 
     /**
      * method to get all countries populations in the world (largest to smallest)
+     * @param con The database connection object.
+     * @param limit The number of results to limit the query to.
+     * @return An ArrayList of Country objects representing the results of the query.
      */
     public static ArrayList<Country> getAllCountriesPop(Connection con, int limit)
     {
@@ -78,7 +81,11 @@ public class countryQuery {
     }
 
     /**
-     * method to get all countries populations in the world (largest to smallest)
+     * method to get all countries populations in a given continent (largest to smallest)
+     * @param con The database connection object.
+     * @param continent_input The name of the continent to search for.
+     * @param limit The number of results to limit the query to.
+     * @return An ArrayList of Country objects representing the results of the query.
      */
     public static ArrayList<Country> getAllCountriesPopContinent(Connection con, String continent_input, int limit)
     {
@@ -128,7 +135,13 @@ public class countryQuery {
         }
     }
 
-
+    /**
+     * method to get all countries populations in a given region (largest to smallest)
+     * @param con The database connection object.
+     * @param input_region The name of the region to search for.
+     * @param limit The number of results to limit the query to.
+     * @return An ArrayList of Country objects representing the results of the query.
+     */
     public static ArrayList<Country> getAllCountriesPopRegion(Connection con, String input_region, int limit)
     {
         //check for negative limit

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 public class BaseTest {
     static Connection con;
 
+    // Setup method to initialize the database connection
     @BeforeAll
     static void init() {
         try {
@@ -26,6 +27,7 @@ public class BaseTest {
         }
     }
 
+    // Teardown method to close the database connection
     @AfterAll
     static void tearDown() {
         if (con != null) {

@@ -5,8 +5,15 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * This class contains methods for querying and printing language data.
+ */
 public class languageQuery {
 
+    /**
+     * Prints a list of languages, their total number of speakers, and the percentage of the world population that speaks them.
+     * @param languages The list of languages to print.
+     */
     public static void printLanguages(ArrayList<Language> languages)
 
     {   //Check language is not null
@@ -16,7 +23,7 @@ public class languageQuery {
         }
         // Print header
         System.out.println(String.format("%-30s %-30s %-30s ", "Language", "Population", "Percentage"));
-        // Loop over all countries in the list
+        // Loop over all languages in the list
         for (Language l : languages)
         {
             String c_string =
@@ -24,6 +31,12 @@ public class languageQuery {
             System.out.println(c_string);
         }
     }
+
+    /**
+     * Gets a list of languages, their total number of speakers, and the percentage of the world population that speaks them.
+     * @param con The database connection object.
+     * @return An ArrayList of Language objects.
+     */
     public static ArrayList<Language> getLanguages(Connection con) {
         try {
             // Create an SQL statement
@@ -40,7 +53,7 @@ public class languageQuery {
 
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract city information
+            // Extract language information
             ArrayList<Language> languages = new ArrayList<Language>();
             while (rset.next()) {
                 Language l = new Language();

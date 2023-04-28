@@ -74,6 +74,13 @@ public class capitalCitiesQuery {
         }
     }
 
+    /**
+     * This method retrieves capital cities of a given continent from the database.
+     * @param con The database connection object
+     * @param continent_input The continent for which to retrieve capital cities
+     * @param limit The limit for the number of cities to retrieve
+     * @return An ArrayList of City objects representing the retrieved capital cities
+     */
     public static ArrayList<City> getCapitalCitiesByContinent(Connection con, String continent_input, int limit) {
         //check if limit is not negative
         if (limit < 0) {
@@ -118,6 +125,13 @@ public class capitalCitiesQuery {
         }
     }
 
+    /**
+     * This method retrieves a list of capital cities in a given region and sorts them by population in descending order.
+     * @param con the database connection
+     * @param region_input the region for which to retrieve capital cities
+     * @param limit the maximum number of capital cities to retrieve
+     * @return an ArrayList of City objects containing the capital city details sorted by population in descending order
+     */
     public static ArrayList<City> getCapitalCitiesByRegion(Connection con, String region_input, int limit) {
         //check if limit is not negative
         if (limit < 0) {
