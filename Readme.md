@@ -7,6 +7,8 @@
 
 
 ## Requirements
+32 requirements of 32 have been implemented, which is 100%.
+
 | Id           | Name                                                                                                                                                            | Met | image                                               |
 |--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|-----------------------------------------------------|
 |   1          | All the countries in the world organised by largest population to smallest.                                                                                     |    🗸       | ![img.png](readme-images/country-pop-world.png)     |
